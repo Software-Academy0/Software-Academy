@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python50 | Algoritma Gücü</title>
+    <style>
+        :root { 
+            --bg: #040d12; 
+            --card: #183d3d; 
+            --primary: #93f9b9; /* Python Yeşil Tonu */
+            --accent: #308d46; 
+            --text: #f8fafc; 
+        }
+        
+        body { 
+            background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; 
+            margin: 0; padding-bottom: 50px;
+            background-image: linear-gradient(135deg, #040d12 0%, #183d3d 100%);
+        }
+
+        .header { 
+            background: rgba(4, 13, 18, 0.9); padding: 30px; text-align: center;
+            border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px);
+        }
+
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        
+        .intro-text { text-align: center; margin-bottom: 40px; color: var(--primary); font-weight: bold; font-size: 1.2rem; }
+
+        .code-card { 
+            background: rgba(24, 61, 61, 0.5); border-radius: 20px; padding: 25px; margin-bottom: 20px;
+            border: 1px solid rgba(147, 249, 185, 0.1); transition: 0.3s;
+        }
+
+        .code-card:hover { 
+            border-color: var(--primary); 
+            transform: translateX(10px); 
+            background: var(--card);
+            box-shadow: -5px 0 20px rgba(147, 249, 185, 0.2);
+        }
+
+        .py-name { color: var(--primary); font-family: 'Consolas', monospace; font-size: 1.4rem; font-weight: 900; }
+        .py-desc { margin-top: 10px; color: #cbd5e1; line-height: 1.6; font-size: 1.1rem; }
+        
+        .py-badge {
+            display: inline-block; margin-top: 15px; padding: 8px 15px;
+            background: #000; border-radius: 12px; font-size: 0.9rem;
+            color: #fff; font-family: 'Courier New', monospace; border-right: 4px solid var(--primary);
+        }
+
+        .nav-btns { display: flex; justify-content: center; gap: 20px; margin-top: 50px; }
+        .btn { 
+            background: var(--primary); color: #040d12; padding: 15px 30px; 
+            border-radius: 15px; text-decoration: none; font-weight: bold; transition: 0.3s;
+        }
+        .btn:hover { filter: brightness(1.2); transform: scale(1.05); }
+
+        @media (max-width: 768px) {
+            .py-name { font-size: 1.1rem; }
+            .py-desc { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <h1 style="margin:0; font-size: 1.8rem; letter-spacing: 2px; color: var(--primary);">PYTHON TEMELLERİ</h1>
+    </header>
+
+    <div class="container">
+        <p class="intro-text">Salih, Python dünyanın en popüler dilidir. İşte basitliği ve gücü birleştiren 50 temel komut:</p>
+        
+        <div id="py-list">
+            </div>
+
+        <div class="nav-btns">
+            <a href="software-academy.html" class="btn" style="background:#475569; color:white;">Ana Menü</a>
+            <a href="index.html" class="btn">Çıkış Yap! →</a>
+        </div>
+    </div>
+
+<script>
+    const pyConcepts = [
+        { n: "print()", d: "Ekrana çıktı vermek için kullanılır.", b: "print('Selam Salih!')" },
+        { n: "input()", d: "Kullanıcıdan bilgi almak için kullanılır.", b: "ad = input('Adın ne?')" },
+        { n: "Değişkenler", d: "Veri saklamak için kullanılır (let/const yoktur).", b: "x = 5" },
+        { n: "int()", d: "Veriyi tam sayıya çevirir.", b: "sayi = int('10')" },
+        { n: "str()", d: "Veriyi metne (string) çevirir.", b: "metin = str(100)" },
+        { n: "float()", d: "Veriyi ondalıklı sayıya çevirir.", b: "pi = float('3.14')" },
+        { n: "type()", d: "Verinin hangi tipte olduğunu söyler.", b: "print(type(5)) # int" },
+        { n: "len()", d: "Metnin veya listenin uzunluğunu verir.", b: "len('Merhaba')" },
+        { n: "if / elif / else", d: "Koşullu durumları yönetir.", b: "if x > 0: ..." },
+        { n: "for in", d: "Liste veya aralık üzerinde döngü kurar.", b: "for i in range(5):" },
+        { n: "while", d: "Koşul sağlandığı sürece döner.", b: "while can > 0:" },
+        { n: "def", d: "Yeni bir fonksiyon tanımlar.", b: "def topla(a, b):" },
+        { n: "return", d: "Fonksiyondan değer döndürür.", b: "return sonuc" },
+        { n: "List (Liste)", d: "Sıralı veri koleksiyonudur.", b: "dizi = [1, 2, 3]" },
+        { n: "append()", d: "Listenin sonuna eleman ekler.", b: "dizi.append(4)" },
+        { n: "remove()", d: "Listeden belirli bir elemanı siler.", b: "dizi.remove(2)" },
+        { n: "Dictionary (Sözlük)", d: "Anahtar-değer çiftleri tutar.", b: "pc = {'ekran': 'RTX4060'}" },
+        { n: "Tuple", d: "Değiştirilemez listelerdir.", b: "nokta = (10, 20)" },
+        { n: "Set", d: "Benzersiz elemanlardan oluşan küme.", b: "kume = {1, 2, 2} # {1,2}" },
+        { n: "range()", d: "Belirli bir sayı aralığı üretir.", b: "range(0, 10)" },
+        { n: "import", d: "Kütüphane veya modül ekler.", b: "import math" },
+        { n: "random.randint()", d: "Rastgele tam sayı üretir.", b: "random.randint(1, 100)" },
+        { n: "round()", d: "Sayıyı en yakın tam sayıya yuvarlar.", b: "round(3.6) # 4" },
+        { n: "upper() / lower()", d: "Metni büyük/küçük harf yapar.", b: "yazi.upper()" },
+        { n: "replace()", d: "Metin içindeki bir parçayı değiştirir.", b: "yazi.replace('a', 'e')" },
+        { n: "split()", d: "Metni parçalara ayırıp liste yapar.", b: "yazi.split(' ')" },
+        { n: "strip()", d: "Baş ve sondaki boşlukları siler.", b: "yazi.strip()" },
+        { n: "try / except", d: "Hata yakalama mekanizmasıdır.", b: "try: ... except: ..." },
+        { n: "with open()", d: "Dosya açmak ve okumak için kullanılır.", b: "with open('not.txt'):" },
+        { n: "write()", d: "Dosyaya veri yazar.", b: "dosya.write('Merhaba')" },
+        { n: "abs()", d: "Sayının mutlak değerini alır.", b: "abs(-5) # 5" },
+        { n: "max() / min()", d: "En büyük veya en küçük değeri bulur.", b: "max(5, 10, 2)" },
+        { n: "sum()", d: "Listedeki sayıları toplar.", b: "sum([1, 2, 3])" },
+        { n: "sorted()", d: "Listeyi küçükten büyüğe sıralar.", b: "sorted(liste)" },
+        { n: "f-string", d: "Metin içine değişken gömme.", b: "f'Adım {ad}'" },
+        { n: "is", d: "Nesne kimliği kontrolü yapar.", b: "if x is None:" },
+        { n: "in", d: "Eleman listede mi kontrol eder.", b: "if 'elma' in meyveler:" },
+        { n: "break", d: "Döngüyü tamamen durdurur.", b: "break" },
+        { n: "continue", d: "Döngünün o adımını atlar.", b: "continue" },
+        { n: "pass", d: "Henüz yazılmamış kodlar için boş geçer.", b: "if x: pass" },
+        { n: "lambda", d: "Tek satırlık anonim fonksiyonlar.", b: "lambda x: x * 2" },
+        { n: "class", d: "Nesne yönelimli programlama için sınıf.", b: "class Araba:" },
+        { n: "__init__", d: "Sınıfın başlangıç (constructor) metodudur.", b: "def __init__(self):" },
+        { n: "self", d: "Sınıf içindeki nesneyi temsil eder.", b: "self.hiz = 0" },
+        { n: "list()", d: "Veriyi listeye dönüştürür.", b: "list('abc') # ['a','b','c']" },
+        { n: "bool()", d: "Veriyi True/False değerine çevirir.", b: "bool(1) # True" },
+        { n: "map()", d: "Fonksiyonu listenin her elemanına uygular.", b: "map(str, liste)" },
+        { n: "filter()", d: "Koşula uyan elemanları ayırır.", b: "filter(lambda x: x>0, L)" },
+        { n: "zip()", d: "İki listeyi eşleştirerek birleştirir.", b: "zip(isimler, yaslar)" },
+        { n: "exit()", d: "Programdan çıkış yapar.", b: "exit()" }
+    ];
+
+    const listArea = document.getElementById('py-list');
+    pyConcepts.forEach((item, index) => {
+        listArea.innerHTML += `
+            <div class="code-card">
+                <div class="py-name">${index + 1}. ${item.n}</div>
+                <div class="py-desc">${item.d}</div>
+                <div class="py-badge"># Örnek: ${item.b}</div>
+            </div>
+        `;
+    });
+</script>
+
+</body>
+</html>

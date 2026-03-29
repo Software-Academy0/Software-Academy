@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS50 | Tasarımın Gücü</title>
+    <style>
+        :root { 
+            --bg: #020617; 
+            --card: #0f172a; 
+            --primary: #f472b6; /* CSS için Pembe/Mor tonu seçtim, fark olsun */
+            --accent: #a855f7; 
+            --text: #f8fafc; 
+        }
+        
+        body { 
+            background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; 
+            margin: 0; padding-bottom: 50px;
+            background-image: radial-gradient(circle at top left, #1e1b4b 0%, #020617 100%);
+        }
+
+        .header { 
+            background: rgba(15, 23, 42, 0.9); padding: 30px; text-align: center;
+            border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px);
+        }
+
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        
+        .intro-text { text-align: center; margin-bottom: 40px; color: var(--primary); font-weight: bold; font-size: 1.2rem; text-shadow: 0 0 10px rgba(244, 114, 182, 0.3); }
+
+        .code-card { 
+            background: var(--card); border-radius: 20px; padding: 25px; margin-bottom: 20px;
+            border: 1px solid rgba(244, 114, 182, 0.1); transition: 0.3s;
+            position: relative; overflow: hidden;
+        }
+
+        .code-card:hover { 
+            border-color: var(--primary); 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 30px rgba(244, 114, 182, 0.15);
+        }
+
+        .property-name { color: var(--primary); font-family: 'Consolas', monospace; font-size: 1.4rem; font-weight: 900; }
+        .property-desc { margin-top: 10px; color: #cbd5e1; line-height: 1.6; font-size: 1.1rem; }
+        
+        .example-badge {
+            display: inline-block; margin-top: 15px; padding: 5px 12px;
+            background: rgba(255,255,255,0.05); border-radius: 8px; font-size: 0.85rem;
+            color: var(--accent); font-family: monospace;
+        }
+
+        /* Navigasyon Butonları */
+        .nav-btns { display: flex; justify-content: center; gap: 20px; margin-top: 50px; }
+        .btn { 
+            background: var(--primary); color: white; padding: 15px 30px; 
+            border-radius: 15px; text-decoration: none; font-weight: bold; transition: 0.3s;
+        }
+        .btn:hover { opacity: 0.8; transform: scale(1.05); }
+
+        @media (max-width: 768px) {
+            .property-name { font-size: 1.1rem; }
+            .property-desc { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <h1 style="margin:0; font-size: 1.8rem; letter-spacing: 2px; color: var(--primary);">CSS TASARIM REHBERİ</h1>
+    </header>
+
+    <div class="container">
+        <p class="intro-text"> HTML iskelettir; CSS ise o iskelete giydirilen kıyafettir. İşte en önemli 50 özellik:</p>
+        
+        <div id="css-list">
+            </div>
+
+        <div class="nav-btns">
+            <a href="html-giris.html" class="btn" style="background:#475569;">HTML'E DÖN</a>
+            <a href="css3.html" class="btn">CSS UYGULAMALARI →</a>
+            <a class="btn" href="software-academy.html">Ana Sayfa!</a>
+            <a class="btn" href="index.html">Çıkış Yap!</a>
+        </div>
+    </div>
+
+<script>
+    const cssProps = [
+        { p: "color", d: "Metnin rengini belirler.", e: "color: red;" },
+        { p: "background-color", d: "Elemanın arka plan rengini belirler.", e: "background-color: #000;" },
+        { p: "font-size", d: "Yazı tipinin boyutunu ayarlar.", e: "font-size: 16px;" },
+        { p: "font-family", d: "Yazı tipini (font) seçer.", e: "font-family: Arial;" },
+        { p: "font-weight", d: "Yazının kalınlığını ayarlar.", e: "font-weight: bold;" },
+        { p: "text-align", d: "Metni sağa, sola veya merkeze hizalar.", e: "text-align: center;" },
+        { p: "text-decoration", d: "Yazının altını çizer veya dekorasyonunu kaldırır.", e: "text-decoration: none;" },
+        { p: "width", d: "Elemanın genişliğini belirler.", e: "width: 100px;" },
+        { p: "height", d: "Elemanın yüksekliğini belirler.", e: "height: 100px;" },
+        { p: "padding", d: "Elemanın iç kenar boşluğunu belirler.", e: "padding: 20px;" },
+        { p: "margin", d: "Elemanın dış kenar boşluğunu (diğer elemanlarla mesafe) belirler.", e: "margin: 10px;" },
+        { p: "border", d: "Elemanın etrafına kenarlık ekler.", e: "border: 1px solid white;" },
+        { p: "border-radius", d: "Kenarların köşelerini yuvarlatır.", e: "border-radius: 50%;" },
+        { p: "display", d: "Elemanın görünüm tipini (block, inline, flex) belirler.", e: "display: flex;" },
+        { p: "position", d: "Elemanın sayfadaki konumlanma türünü belirler.", e: "position: absolute;" },
+        { p: "top / left / right / bottom", d: "Position özelliği aktifken elemanı kaydırır.", e: "top: 20px;" },
+        { p: "z-index", d: "Elemanların üst üste binme sırasını belirler.", e: "z-index: 999;" },
+        { p: "box-shadow", d: "Elemana gölge efekti ekler.", e: "box-shadow: 2px 2px 5px gray;" },
+        { p: "text-shadow", d: "Yazıya gölge efekti ekler.", e: "text-shadow: 1px 1px black;" },
+        { p: "opacity", d: "Elemanın şeffaflık oranını belirler.", e: "opacity: 0.5;" },
+        { p: "overflow", d: "İçerik elemandan taşarsa ne olacağını belirler.", e: "overflow: hidden;" },
+        { p: "float", d: "Elemanı sağa veya sola yaslar (eski yöntem).", e: "float: left;" },
+        { p: "clear", d: "Float özelliğinin etkisini temizler.", e: "clear: both;" },
+        { p: "flex-direction", d: "Flex içindeki elemanların diziliş yönünü seçer.", e: "flex-direction: column;" },
+        { p: "justify-content", d: "Flex elemanlarını yatayda hizalar.", e: "justify-content: center;" },
+        { p: "align-items", d: "Flex elemanlarını dikeyde hizalar.", e: "align-items: center;" },
+        { p: "gap", d: "Flex veya Grid elemanları arasındaki boşluğu ayarlar.", e: "gap: 20px;" },
+        { p: "grid-template-columns", d: "CSS Grid yapısında sütunları belirler.", e: "grid-template-columns: 1fr 1fr;" },
+        { p: "transition", d: "Özellik değişimine animasyon (geçiş) ekler.", e: "transition: 0.3s;" },
+        { p: "transform", d: "Elemanı döndürür, büyütür veya kaydırır.", e: "transform: rotate(45deg);" },
+        { p: "animation", d: "Önceden tanımlanmış keyframe animasyonunu çalıştırır.", e: "animation: slide 2s;" },
+        { p: "background-image", d: "Arka plana resim ekler.", e: "background-image: url('resim.jpg');" },
+        { p: "background-size", d: "Arka plan resminin boyutunu ayarlar.", e: "background-size: cover;" },
+        { p: "cursor", d: "Farenin eleman üzerindeki simgesini değiştirir.", e: "cursor: pointer;" },
+        { p: "visibility", d: "Elemanı gizler ama yerini tutmaya devam eder.", e: "visibility: hidden;" },
+        { p: "list-style", d: "Liste işaretlerini değiştirir veya kaldırır.", e: "list-style: none;" },
+        { p: "line-height", d: "Satırlar arasındaki mesafeyi ayarlar.", e: "line-height: 1.5;" },
+        { p: "letter-spacing", d: "Harfler arasındaki boşluğu ayarlar.", e: "letter-spacing: 2px;" },
+        { p: "box-sizing", d: "Padding ve border'ın genişliğe dahil olup olmayacağını belirler.", e: "box-sizing: border-box;" },
+        { p: "filter", d: "Bulanıklık veya siyah-beyaz gibi efektler ekler.", e: "filter: blur(5px);" },
+        { p: "user-select", d: "Metnin kullanıcı tarafından seçilmesini engeller/açer.", e: "user-select: none;" },
+        { p: "pointer-events", d: "Elemanın tıklanabilir olup olmadığını belirler.", e: "pointer-events: none;" },
+        { p: "aspect-ratio", d: "Elemanın en-boy oranını sabitler.", e: "aspect-ratio: 16 / 9;" },
+        { p: "white-space", d: "Metnin alt satıra geçme kurallarını belirler.", e: "white-space: nowrap;" },
+        { p: "outline", d: "Border'ın dışına ekstra bir çerçeve ekler.", e: "outline: 2px solid blue;" },
+        { p: "vertical-align", d: "İçeriklerin dikey hizasını belirler.", e: "vertical-align: middle;" },
+        { p: "background-gradient", d: "Arka plana renk geçişi ekler.", e: "background: linear-gradient(red, blue);" },
+        { p: "object-fit", d: "Resmin kapsayıcı içine nasıl sığacağını belirler.", e: "object-fit: contain;" },
+        { p: "backdrop-filter", d: "Arka planı bulandırarak cam efekti verir.", e: "backdrop-filter: blur(10px);" },
+        { p: "scroll-behavior", d: "Sayfa içi kaydırmayı yumuşatır.", e: "scroll-behavior: smooth;" }
+    ];
+
+    const listArea = document.getElementById('css-list');
+    cssProps.forEach((item, index) => {
+        listArea.innerHTML += `
+            <div class="code-card">
+                <div class="property-name">${index + 1}. ${item.p}</div>
+                <div class="property-desc">${item.d}</div>
+                <div class="example-badge">Örnek: ${item.e}</div>
+            </div>
+        `;
+    });
+</script>
+
+</body>
+</html>

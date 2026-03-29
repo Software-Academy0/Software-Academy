@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS50 | Dinamik Güç</title>
+    <style>
+        :root { 
+            --bg: #020617; 
+            --card: #0f172a; 
+            --primary: #fbbf24; /* JS Sarı Tonu */
+            --accent: #f59e0b; 
+            --text: #f8fafc; 
+        }
+        
+        body { 
+            background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; 
+            margin: 0; padding-bottom: 50px;
+            background-image: radial-gradient(circle at bottom right, #451a03 0%, #020617 100%);
+        }
+
+        .header { 
+            background: rgba(15, 23, 42, 0.9); padding: 30px; text-align: center;
+            border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px);
+        }
+
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        
+        .intro-text { text-align: center; margin-bottom: 40px; color: var(--primary); font-weight: bold; font-size: 1.2rem; }
+
+        .code-card { 
+            background: var(--card); border-radius: 20px; padding: 25px; margin-bottom: 20px;
+            border: 1px solid rgba(251, 191, 36, 0.1); transition: 0.3s;
+        }
+
+        .code-card:hover { 
+            border-color: var(--primary); 
+            transform: scale(1.02); 
+            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.1);
+        }
+
+        .concept-name { color: var(--primary); font-family: 'Consolas', monospace; font-size: 1.4rem; font-weight: 900; }
+        .concept-desc { margin-top: 10px; color: #cbd5e1; line-height: 1.6; font-size: 1.1rem; }
+        
+        .js-badge {
+            display: inline-block; margin-top: 15px; padding: 5px 12px;
+            background: #000; border-radius: 8px; font-size: 0.85rem;
+            color: #10b981; font-family: monospace; border-left: 3px solid var(--primary);
+        }
+
+        .nav-btns { display: flex; justify-content: center; gap: 20px; margin-top: 50px; }
+        .btn { 
+            background: var(--primary); color: #000; padding: 15px 30px; 
+            border-radius: 15px; text-decoration: none; font-weight: bold; transition: 0.3s;
+        }
+        .btn:hover { background: #fff; transform: translateY(-3px); }
+
+        @media (max-width: 768px) {
+            .concept-name { font-size: 1.1rem; }
+            .concept-desc { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <h1 style="margin:0; font-size: 1.8rem; letter-spacing: 2px; color: var(--primary);">JAVASCRIPT REHBERİ</h1>
+    </header>
+
+    <div class="container">
+        <p class="intro-text">Salih, JS bir web sitesinin beynidir. İşte mantık kurmanı sağlayacak 50 temel taş:</p>
+        
+        <div id="js-list">
+            </div>
+
+        <div class="nav-btns">
+            <a href="software-academy.html" class="btn" style="background:#475569; color:white;">Ana Sayfa</a>
+           
+        </div>
+    </div>
+
+<script>
+    const jsConcepts = [
+        { c: "console.log()", d: "Tarayıcı konsoluna bilgi yazdırmak için kullanılır (Hata ayıklama).", s: "console.log('Selam!');" },
+        { c: "let", d: "Değiştirilebilir bir değişken tanımlar.", s: "let skor = 10;" },
+        { c: "const", d: "Sabit (değiştirilemez) bir değişken tanımlar.", s: "const pi = 3.14;" },
+        { c: "String", d: "Metinsel veri tipidir.", s: "let isim = 'Salih';" },
+        { c: "Number", d: "Sayısal veri tipidir.", s: "let yas = 25;" },
+        { c: "Boolean", d: "Doğru (true) veya Yanlış (false) değeridir.", s: "let aktif = true;" },
+        { c: "Array (Dizi)", d: "Birden fazla veriyi tek bir listede tutar.", s: "let diller = ['HTML', 'CSS'];" },
+        { c: "Object (Nesne)", d: "Özellikleri olan karmaşık veri yapılarıdır.", s: "let pc = {gpu: 'RTX 4060'};" },
+        { c: "Function", d: "Tekrar kullanılabilir kod bloklarıdır.", s: "function merhaba() { ... }" },
+        { c: "Arrow Function", d: "Fonksiyon yazmanın kısa ve modern yoludur.", s: "const topla = (a, b) => a + b;" },
+        { c: "if / else", d: "Koşula göre farklı kodlar çalıştırır.", s: "if(yas > 18) { ... }" },
+        { c: "for Loop", d: "Belirli bir sayıda kodu tekrar eder.", s: "for(let i=0; i<5; i++)" },
+        { c: "while Loop", d: "Koşul doğru olduğu sürece tekrar eder.", s: "while(can > 0) { ... }" },
+        { c: "forEach", d: "Dizinin her elemanı için bir işlem yapar.", s: "dizi.forEach(e => ...);" },
+        { c: "map", d: "Diziyi işleyerek yeni bir dizi oluşturur.", s: "dizi.map(x => x * 2);" },
+        { c: "filter", d: "Dizideki belirli elemanları süzer.", s: "dizi.filter(x => x > 5);" },
+        { c: "alert()", d: "Ekranda küçük bir uyarı penceresi açar.", s: "alert('Hoş geldin!');" },
+        { c: "prompt()", d: "Kullanıcıdan yazı girişi alır.", s: "let n = prompt('İsim?');" },
+        { c: "confirm()", d: "Tamam/İptal onay kutusu açar.", s: "confirm('Emin misin?');" },
+        { c: "document.getElementById()", d: "ID'sine göre bir HTML elemanını seçer.", s: "let kutu = document.getElementById('box');" },
+        { c: "querySelector()", d: "CSS seçicisi gibi eleman seçmeyi sağlar.", s: "document.querySelector('.btn');" },
+        { c: "addEventListener()", d: "Bir elemana tıklama, yazma gibi olaylar ekler.", s: "btn.addEventListener('click', ...);" },
+        { c: "innerHTML", d: "Bir HTML elemanının içindeki kodu değiştirir.", s: "kutu.innerHTML = '<h1>Yeni</h1>';" },
+        { c: "innerText / textContent", d: "Sadece metin içeriğini değiştirir.", s: "kutu.innerText = 'Merhaba';" },
+        { c: "style.property", d: "JS üzerinden CSS stilini değiştirir.", s: "kutu.style.color = 'red';" },
+        { c: "classList.add() / remove()", d: "CSS sınıflarını ekler veya siler.", s: "kutu.classList.add('aktif');" },
+        { c: "setTimeout()", d: "Bir işlemi belirli bir süre sonra yapar.", s: "setTimeout(() => { ... }, 1000);" },
+        { c: "setInterval()", d: "Bir işlemi sürekli tekrar eder.", s: "setInterval(saat, 1000);" },
+        { c: "JSON.stringify()", d: "Veriyi yazıya (string) çevirir.", s: "JSON.stringify(obje);" },
+        { c: "JSON.parse()", d: "Yazıyı tekrar veriye çevirir.", s: "JSON.parse(yazi);" },
+        { c: "localStorage", d: "Tarayıcı kapansa da silinmeyen veri saklar.", s: "localStorage.setItem('key', 'val');" },
+        { c: "sessionStorage", d: "Sekme kapanınca silinen veri saklar.", s: "sessionStorage.getItem('user');" },
+        { c: "Math.random()", d: "0 ile 1 arası rastgele sayı üretir.", s: "Math.random() * 100;" },
+        { c: "Math.floor()", d: "Sayıyı aşağı yuvarlar.", s: "Math.floor(5.9) // 5" },
+        { c: "Fetch API", d: "İnternetten veri çekmek için kullanılır.", s: "fetch(url).then(...);" },
+        { c: "async / await", d: "Veri çekme gibi işlemleri beklemeyi sağlar.", s: "async function veriAl() { ... }" },
+        { c: "try / catch", d: "Hataları yakalayıp sitenin çökmesini engeller.", s: "try { ... } catch(e) { ... }" },
+        { c: "Event.preventDefault()", d: "Formun sayfayı yenilemesini engeller.", s: "e.preventDefault();" },
+        { c: "Template Literals", d: "Değişkenleri metin içine kolayca gömer.", s: "`${isim} geldi.`" },
+        { c: "Destructuring", d: "Obje veya dizi içindeki verileri parçalar.", s: "const {ad, yas} = kisi;" },
+        { c: "Spread Operator (...)", d: "Dizileri veya objeleri kopyalar/birleştirir.", s: "const yeni = [...eski];" },
+        { c: "typeof", d: "Bir verinin hangi tipte olduğunu söyler.", s: "typeof 'merhaba' // string" },
+        { c: "includes()", d: "Dizi veya metinde bir değer var mı bakar.", s: "metin.includes('salih');" },
+        { c: "split()", d: "Metni belirli bir yerden bölüp dizi yapar.", s: "yazi.split(',');" },
+        { c: "join()", d: "Diziyi birleştirip metin yapar.", s: "dizi.join('-');" },
+        { c: "toUpperCase() / toLowerCase()", d: "Yazıyı büyük/küçük harf yapar.", s: "yazi.toUpperCase();" },
+        { c: "trim()", d: "Metnin başındaki ve sonundaki boşlukları siler.", s: "yazi.trim();" },
+        { c: "push()", d: "Dizinin sonuna yeni bir eleman ekler.", s: "dizi.push('yeni');" },
+        { c: "pop()", d: "Dizinin sonundaki elemanı siler.", s: "dizi.pop();" },
+        { c: "window.location.href", d: "Kullanıcıyı başka bir sayfaya yönlendirir.", s: "window.location.href = 'index.html';" }
+    ];
+
+    const listArea = document.getElementById('js-list');
+    jsConcepts.forEach((item, index) => {
+        listArea.innerHTML += `
+            <div class="code-card">
+                <div class="concept-name">${index + 1}. ${item.c}</div>
+                <div class="concept-desc">${item.d}</div>
+                <div class="js-badge">// Kod: ${item.s}</div>
+            </div>
+        `;
+    });
+</script>
+
+</body>
+</html>

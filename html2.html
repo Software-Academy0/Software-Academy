@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML50 | Master List</title>
+    <style>
+        :root { --bg: #020617; --card: #0f172a; --primary: #38bdf8; --accent: #10b981; --text: #f8fafc; }
+        body { 
+            background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; 
+            margin: 0; padding-bottom: 50px;
+        }
+        .header { 
+            background: rgba(15, 23, 42, 0.9); padding: 30px; text-align: center;
+            border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px);
+        }
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        
+        .intro-text { text-align: center; margin-bottom: 40px; color: var(--primary); font-weight: bold; font-size: 1.2rem; }
+
+        .code-card { 
+            background: var(--card); border-radius: 20px; padding: 25px; margin-bottom: 20px;
+            border: 1px solid rgba(56, 189, 248, 0.1); transition: 0.3s;
+        }
+        .code-card:hover { border-color: var(--primary); transform: translateX(10px); background: #1e293b; }
+
+        .tag-name { color: var(--primary); font-family: 'Consolas', monospace; font-size: 1.5rem; font-weight: 900; }
+        .tag-desc { margin-top: 10px; color: #cbd5e1; line-height: 1.6; font-size: 1.1rem; }
+        
+        /* Mobil Uyumluluk */
+        @media (max-width: 768px) {
+            .tag-name { font-size: 1.2rem; }
+            .tag-desc { font-size: 1rem; }
+            .code-card:hover { transform: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <h1 style="margin:0; font-size: 1.8rem; letter-spacing: 2px;">HTML KOD REHBERİ</h1>
+           <a class="bt" href="html3.html">Bu Kodlarla Yapıla Bilecek Min Projeler!</a>
+    </header>
+
+    <div class="container">
+        <p class="intro-text">Tabii ki Salih, işte kafa karıştırmayan, tertemiz, sadece kodlardan oluşan o 50'lik liste:</p>
+        
+        <div id="list-area">
+            </div>
+    </div>
+<style>
+    .bt{
+        color: red;
+    }
+
+</style>
+
+<script>
+    const htmlTags = [
+        { t: "<!DOCTYPE html>", d: "Belgenin HTML5 formatında olduğunu tarayıcıya bildirir." },
+        { t: "<html>", d: "Sayfanın kök etiketidir, tüm içerik bunun içine yazılır." },
+        { t: "<head>", d: "Sayfa hakkındaki meta verileri (başlık, stil) içerir; kullanıcı görmez." },
+        { t: "<title>", d: "Tarayıcı sekmesinde görünen sayfa başlığını belirler." },
+        { t: "<body>", d: "Sayfada görünen tüm içeriklerin (metin, resim, video) ana alanıdır." },
+        { t: "<meta>", d: "Karakter seti, SEO açıklamaları ve ekran uyumu gibi verileri taşır." },
+        { t: "<link>", d: "CSS dosyaları gibi dış kaynakları sayfaya bağlamak için kullanılır." },
+        { t: "<style>", d: "Sayfa içine doğrudan CSS (stil) kodları yazmak için kullanılır." },
+        { t: "<script>", d: "JavaScript kodlarını eklemek veya dış JS dosyalarını çağırmak içindir." },
+        { t: "<h1> - <h6>", d: "Başlık hiyerarşisidir. h1 en önemli, h6 en küçük başlıktır." },
+        { t: "<p>", d: "Metinleri paragraflara ayırmak için kullanılır." },
+        { t: "<a>", d: "Başka bir sayfaya veya adrese bağlantı (link) verir." },
+        { t: "<img>", d: "Sayfaya resim veya grafik eklemek için kullanılır." },
+        { t: "<div>", d: "Sayfayı bölümlere ayırmak için kullanılan en yaygın kapsayıcıdır." },
+        { t: "<span>", d: "Metin içinde belirli bir kelimeyi veya alanı stilize etmek içindir." },
+        { t: "<ul>", d: "Sırasız (madde işaretli) liste oluşturur." },
+        { t: "<ol>", d: "Sıralı (numaralı) liste oluşturur." },
+        { t: "<li>", d: "Listenin her bir maddesini temsil eder." },
+        { t: "<br>", d: "Metin içinde bir alt satıra geçmeyi sağlar." },
+        { t: "<hr>", d: "Yatay bir çizgi çekerek bölümleri birbirinden ayırır." },
+        { t: "<strong>", d: "Metni kalınlaştırır ve içeriğin önemli olduğunu belirtir." },
+        { t: "<em>", d: "Metni italik yapar ve vurgu ekler." },
+        { t: "<table>", d: "Verileri düzenli bir tabloda göstermek için kullanılır." },
+        { t: "<tr>", d: "Tablo içindeki bir satırı (row) temsil eder." },
+        { t: "<td>", d: "Tablo satırı içindeki standart bir hücreyi temsil eder." },
+        { t: "<th>", d: "Tablonun başlık hücresidir, içeriği kalın ve ortalı gösterir." },
+        { t: "<thead>", d: "Tablonun başlık grubunu (üst kısmını) belirler." },
+        { t: "<tbody>", d: "Tablonun ana veri kısmını gruplar." },
+        { t: "<form>", d: "Kullanıcıdan veri toplamak (giriş, kayıt vb.) için alan oluşturur." },
+        { t: "<input>", d: "Metin kutusu, şifre alanı gibi veri giriş bileşenleridir." },
+        { t: "<label>", d: "Input alanları için açıklayıcı etiketler tanımlar." },
+        { t: "<button>", d: "Tıklanabilir bir buton oluşturur." },
+        { t: "<textarea>", d: "Kullanıcının uzun metinler girebileceği çok satırlı alan." },
+        { t: "<select>", d: "Açılır menü (dropdown) listesi oluşturur." },
+        { t: "<option>", d: "Açılır menü içindeki her bir seçeneği temsil eder." },
+        { t: "<header>", d: "Sayfanın veya bir bölümün giriş kısmını temsil eder." },
+        { t: "<nav>", d: "Navigasyon menülerini (ana menü) içeren bölümdür." },
+        { t: "<main>", d: "Sayfanın en temel ve özgün içeriğinin bulunduğu alandır." },
+        { t: "<section>", d: "Sayfadaki belirli bir konuya odaklanmış tematik bölümler." },
+        { t: "<article>", d: "Haber veya blog yazısı gibi bağımsız içerik parçalarıdır." },
+        { t: "<aside>", d: "Ana içerikle dolaylı bağlantılı yan içerik (kenar çubuğu) alanı." },
+        { t: "<footer>", d: "Sayfanın en alt kısmındaki telif hakkı ve iletişim bilgilerini içerir." },
+        { t: "<audio>", d: "Sayfaya ses dosyaları eklemek ve oynatmak için kullanılır." },
+        { t: "<video>", d: "Sayfaya video dosyaları eklemek ve oynatmak için kullanılır." },
+        { t: "<iframe>", d: "Başka bir web sitesini mevcut sayfanın içine gömmek içindir." }
+    ];
+
+    const listArea = document.getElementById('list-area');
+    htmlTags.forEach((tag, index) => {
+        listArea.innerHTML += `
+            <div class="code-card">
+                <div class="tag-name">${index + 1}. ${tag.t.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>
+                <div class="tag-desc">${tag.d}</div>
+            </div>
+        `;
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Academy | HTML Pro</title>
+    <style>
+        :root { --bg: #020617; --card: #0f172a; --primary: #38bdf8; --text: #f8fafc; --accent: #818cf8; }
+        
+        body { 
+            background: var(--bg); color: var(--text); font-family: 'Inter', 'Segoe UI', sans-serif; 
+            margin: 0; min-height: 100vh; display: flex; flex-direction: column;
+        }
+
+        /* --- ÜST PANEL --- */
+        .header { 
+            background: rgba(15, 23, 42, 0.9); padding: 20px 5%; 
+            display: flex; justify-content: space-between; align-items: center; 
+            border-bottom: 2px solid var(--primary); backdrop-filter: blur(10px);
+        }
+        .logo { font-weight: 900; color: var(--primary); font-size: 1.6rem; text-shadow: 0 0 15px var(--primary); }
+
+        /* --- ANA İÇERİK --- */
+        .main-container { 
+            flex: 1; display: flex; justify-content: center; align-items: center; padding: 40px;
+        }
+        .lesson-card { 
+            background: var(--card); width: 100%; max-width: 1100px; min-height: 600px;
+            border-radius: 40px; padding: 60px; border: 1px solid rgba(56, 189, 248, 0.2);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.6); display: flex; flex-direction: column;
+        }
+
+        .badge { 
+            align-self: flex-start; padding: 8px 20px; border-radius: 50px; 
+            background: var(--primary); color: #000; font-weight: 800; font-size: 0.8rem; margin-bottom: 20px;
+        }
+
+        h1 { font-size: 3rem; margin: 0 0 20px 0; color: var(--primary); font-weight: 900; }
+        p { font-size: 1.4rem; line-height: 1.8; color: #cbd5e1; margin-bottom: 30px; }
+
+        /* --- KOD BLOĞU --- */
+        .code-area { 
+            background: #000; padding: 30px; border-radius: 20px; border-left: 6px solid var(--primary);
+            position: relative; margin-top: auto; overflow-x: auto;
+        }
+        pre { margin: 0; color: #10b981; font-family: 'Fira Code', 'Consolas', monospace; font-size: 1.2rem; white-space: pre-wrap; }
+
+        /* --- TUŞLAR --- */
+        .footer-nav { display: flex; justify-content: space-between; margin-top: 40px; gap: 15px; }
+        .btn { 
+            background: var(--primary); color: #020617; border: none; padding: 18px 45px; 
+            border-radius: 15px; font-weight: 900; cursor: pointer; transition: 0.3s; font-size: 1.1rem;
+        }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--primary); background: #fff; }
+        .btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        /* --- ALT GELİŞİM ÇUBUĞU --- */
+        .progress-section { 
+            background: #0f172a; padding: 25px; border-top: 2px solid var(--primary); text-align: center;
+        }
+        .bar-outer { width: 90%; height: 14px; background: #020617; margin: 10px auto; border-radius: 20px; overflow: hidden; }
+        .bar-inner { width: 0%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); transition: 0.5s ease; }
+
+        .jump-btn { 
+            position: fixed; bottom: 130px; right: 40px; background: var(--accent); color: white;
+            width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-size: 1.8rem; box-shadow: 0 0 20px var(--accent); border: 2px solid #fff; z-index: 100;
+        }
+
+        /* =============================================
+           MOBİL UYUMLULUK (RESPONSIVE) AYARLARI
+           ============================================= */
+        @media (max-width: 768px) {
+            .header { padding: 15px; }
+            .logo { font-size: 1.2rem; }
+            #pageText { font-size: 0.9rem; }
+
+            .main-container { padding: 15px; padding-top: 30px; }
+            .lesson-card { padding: 30px 20px; min-height: 500px; border-radius: 25px; }
+
+            h1 { font-size: 1.8rem; }
+            p { font-size: 1.1rem; }
+            pre { font-size: 1rem; }
+            .code-area { padding: 20px; }
+
+            .footer-nav { flex-direction: column; }
+            .btn { width: 100%; padding: 15px; font-size: 1rem; }
+
+            .jump-btn { width: 55px; height: 55px; bottom: 110px; right: 20px; font-size: 1.5rem; }
+            .progress-section { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">SOFTWARE ACADEMY</div>
+        <div id="pageText" style="font-weight: 900;">SAYFA: 1 / 150</div>
+        <button onclick="location.href='index.html'" style="background:#ef4444; color:white; border:none; padding:8px 15px; border-radius:10px; cursor:pointer; font-weight:bold;">ÇIKIŞ</button>
+    </header>
+
+    <main class="main-container">
+        <div class="lesson-card">
+            <div id="statusBadge" class="badge">A1 - BAŞLANGIÇ</div>
+            <div id="lessonWrapper">
+                </div>
+            
+            <div class="footer-nav">
+                <button id="btnPrev" class="btn" style="background:#475569; color:white;" onclick="nav(-1)">GERİ</button>
+                <button id="btnNext" class="btn" onclick="nav(1)">İLERLE</button>
+            </div>
+        </div>
+    </main>
+
+    <div class="jump-btn" onclick="goToPage()">⚡</div>
+
+    <div class="progress-section">
+        <b style="letter-spacing: 2px; font-size: 1rem;">GELİŞİM: %<span id="percVal">1</span></b>
+        <div class="bar-outer"><div id="barFill" class="bar-inner"></div></div>
+    </div>
+
+<script>
+    let currentIdx = 0;
+
+    const lessons = [
+        { t: "HTML Giriş", c: "HTML, web sitelerinin iskeletidir. Bu ders serisinde A1'den C1'e kadar tüm HTML dünyasını öğreneceksin. Hazır mısın Salih?", code: "<!DOCTYPE html>\n<html>\n  <body>\n    <h1>Hoş Geldin!</h1>\n  </body>\n</html>" },
+        { t: "Body Etiketi", c: "Web sayfasında kullanıcının gördüğü her şey <body> etiketleri arasına yazılır. Arka plan renkleri ve metinler burada yer alır.", code: "<body>\n  <p>Görünen içerik buraya gelir.</p>\n</body>" },
+        { t: "Başlıklar (H1-H6)", c: "H1 en büyük başlıktır ve her sayfada mutlaka bir tane bulunmalıdır. SEO için bu çok kritiktir.", code: "<h1>Bu Ana Başlıktır</h1>\n<h2>Bu Alt Başlıktır</h2>" },
+        { t: "Paragraf Yapısı", c: "Yazıları paragraflara ayırmak için <p> etiketini kullanırız. Tarayıcı bunlar arasına boşluk bırakır.", code: "<p>Bu bir paragraf örneğidir.</p>" }
+    ];
+
+    for(let i = 5; i <= 150; i++) {
+        lessons.push({
+            t: `İleri Teknik Bilgi #${i}`,
+            c: `Sayfa ${i}: HTML5 ile gelen gelişmiş yapısal etiketleri ve profesyonel attribute kullanımlarını inceliyoruz.`,
+            code: `<section id="sec-${i}">\n  <article>Gelişmiş Veri Yapısı ${i}</article>\n</section>`
+        });
+    }
+
+    function render() {
+        const item = lessons[currentIdx];
+        const wrapper = document.getElementById('lessonWrapper');
+        
+        wrapper.innerHTML = `
+            <h1>${item.t}</h1>
+            <p>${item.c}</p>
+            <div class="code-area">
+                <pre>${item.code.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</pre>
+            </div>
+        `;
+
+        document.getElementById('pageText').innerText = `SAYFA: ${currentIdx + 1} / 150`;
+        let progress = Math.round(((currentIdx + 1) / 150) * 100);
+        document.getElementById('percVal').innerText = progress;
+        document.getElementById('barFill').style.width = progress + "%";
+        
+        const badge = document.getElementById('statusBadge');
+        if(currentIdx < 50) { badge.innerText = "A1 - BAŞLANGIÇ"; badge.style.background = "#38bdf8"; }
+        else if(currentIdx < 100) { badge.innerText = "B1 - ORTA"; badge.style.background = "#fbbf24"; }
+        else { badge.innerText = "C1 - PROFESYONEL"; badge.style.background = "#f87171"; }
+
+        document.getElementById('btnPrev').disabled = currentIdx === 0;
+        document.getElementById('btnNext').innerText = currentIdx === 149 ? "BİTİR" : "İLERLE";
+    }
+
+    function nav(step) {
+        currentIdx += step;
+        render();
+        window.scrollTo(0,0);
+    }
+
+    function goToPage() {
+        let p = prompt("Gitmek istediğin sayfa (1-150):");
+        if(p >= 1 && p <= 150) {
+            currentIdx = p - 1;
+            render();
+        }
+    }
+
+    render();
+</script>
+</body>
+</html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html lang="tr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Software Academy | Giriş Portalı</title>
+
+    <style>
+
+        @media (max-width: 480px) {
+
+    .auth-card {
+
+        padding: 2rem 1.5rem; /* Mobilde iç boşluğu azalt */
+
+        width: 90%; /* Ekranın %90'ını kaplasın */
+
+        border-radius: 25px;
+
+    }
+
+    h1 { font-size: 1.8rem; } /* Başlığı küçült */
+
+    input, .btn-glow { padding: 12px; font-size: 0.9rem; } /* Inputları küçült */
+
+}
+
+        :root { --bg: #020617; --card: #1e293b; --primary: #38bdf8; --accent: #818cf8; --text: #f8fafc; }
+
+        body {
+
+            background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif;
+
+            margin: 0; display: flex; justify-content: center; align-items: center;
+
+            min-height: 100vh; overflow-x: hidden;
+
+            background-image: radial-gradient(circle at 50% 50%, #1e293b 0%, #020617 100%);
+
+        }
+
+
+
+        .auth-card {
+
+            background: rgba(30, 41, 59, 0.7); padding: 3rem; border-radius: 40px;
+
+            border: 2px solid var(--primary); backdrop-filter: blur(25px);
+
+            width: 100%; max-width: 420px; text-align: center;
+
+            box-shadow: 0 0 80px rgba(56, 189, 248, 0.15);
+
+            animation: fadeIn 0.8s ease-out;
+
+            margin: 20px;
+
+        }
+
+
+
+        /* --- KAPAK FOTO STİLİ --- */
+
+        .cover-img {
+
+            width: 100px; height: 100px; border-radius: 50%;
+
+            border: 3px solid var(--primary); margin-bottom: 15px;
+
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+
+            object-fit: cover;
+
+        }
+
+
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+
+
+        h1 { font-size: 2.2rem; margin-bottom: 5px; font-weight: 900; text-shadow: 0 0 20px var(--primary); }
+
+        p { opacity: 0.6; margin-bottom: 25px; font-size: 1rem; }
+
+
+
+        .input-box { position: relative; margin-bottom: 20px; text-align: left; transition: 0.3s; }
+
+        .input-box label { display: block; margin-bottom: 6px; font-weight: 600; color: var(--primary); font-size: 0.8rem; text-transform: uppercase; }
+
+       
+
+        input {
+
+            width: 100%; padding: 14px; border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2);
+
+            background: rgba(15, 23, 42, 0.8); color: white; outline: none; box-sizing: border-box;
+
+            font-size: 0.95rem; transition: 0.3s;
+
+        }
+
+        input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(56, 189, 248, 0.3); }
+
+
+
+        /* Kayıtta Görünecek Alan */
+
+        #emailSection { display: block; }
+
+
+
+        .btn-glow {
+
+            width: 100%; background: var(--primary); color: #020617; border: none;
+
+            padding: 16px; border-radius: 12px; font-weight: 900; cursor: pointer;
+
+            transition: 0.3s; text-transform: uppercase; font-size: 1rem;
+
+            box-shadow: 0 5px 20px rgba(56, 189, 248, 0.3); margin-top: 10px;
+
+        }
+
+        .btn-glow:hover { transform: translateY(-2px); box-shadow: 0 8px 25px var(--primary); background: white; }
+
+
+
+        .footer-link { margin-top: 20px; color: var(--accent); cursor: pointer; font-size: 0.9rem; font-weight: 500; }
+
+        .footer-link:hover { color: white; text-shadow: 0 0 10px var(--accent); }
+
+    </style>
+
+</head>
+
+<body>
+
+
+
+    <div class="auth-card">
+
+        <img src="img.png" alt="Logo" class="cover-img">
+
+       
+
+        <h1 id="mainTitle">Kayıt Ol</h1>
+
+        <p id="subTitle">Geleceğin yazılımcıları burada yetişiyor.</p>
+
+
+
+        <div class="input-box" id="emailSection">
+
+            <label>E-Posta Adresi</label>
+
+            <input type="email" id="emailField" placeholder="ornek@mail.com">
+
+        </div>
+
+
+
+        <div class="input-box">
+
+            <label>Kullanıcı Adı</label>
+
+            <input type="text" id="userField" placeholder="İsmini belirle">
+
+        </div>
+
+
+
+        <div class="input-box">
+
+            <label>Gizli Şifre</label>
+
+            <input type="password" id="passField" placeholder="••••••••">
+
+        </div>
+
+
+
+        <button class="btn-glow" id="actionBtn" onclick="handleAuth()">Hesabı Oluştur</button>
+
+       
+
+        <div class="footer-link" id="toggleLink" onclick="toggleMode()">Zaten bir hesabın var mı? Giriş Yap</div>
+
+    </div>
+
+
+
+<script>
+
+   
+
+    let loginMode = false;
+
+
+
+    function toggleMode() {
+
+        loginMode = !loginMode;
+
+        const mainTitle = document.getElementById('mainTitle');
+
+        const subTitle = document.getElementById('subTitle');
+
+        const actionBtn = document.getElementById('actionBtn');
+
+        const toggleLink = document.getElementById('toggleLink');
+
+        const emailSection = document.getElementById('emailSection');
+
+
+
+        if (loginMode) {
+
+            mainTitle.innerText = "Giriş Yap";
+
+            subTitle.innerText = "Akademiye kaldığın yerden devam et.";
+
+            actionBtn.innerText = "Giriş Yap";
+
+            toggleLink.innerText = "Hesabın yok mu? Kayıt Ol";
+
+            emailSection.style.display = "none"; // Giriş yaparken e-postayı gizle
+
+        } else {
+
+            mainTitle.innerText = "Kayıt Ol";
+
+            subTitle.innerText = "Geleceğin yazılımcıları burada yetişiyor.";
+
+            actionBtn.innerText = "Hesabı Oluştur";
+
+            toggleLink.innerText = "Zaten bir hesabın var mı? Giriş Yap";
+
+            emailSection.style.display = "block"; // Kayıt olurken e-postayı göster
+
+        }
+
+    }
+
+
+
+    function handleAuth() {
+
+        const username = document.getElementById('userField').value.trim();
+
+        const password = document.getElementById('passField').value.trim();
+
+        const email = document.getElementById('emailField').value.trim();
+
+
+
+        if (!username || !password || (!loginMode && !email)) {
+
+            alert("Lütfen gerekli tüm alanları doldur!");
+
+            return;
+
+        }
+
+
+
+        if (loginMode) {
+
+            // GİRİŞ SİSTEMİ
+
+            const storedData = localStorage.getItem('academy_user_' + username);
+
+            if (storedData) {
+
+                const parsedData = JSON.parse(storedData);
+
+                if (parsedData.password === password) {
+
+                    sessionStorage.setItem('activeUser', JSON.stringify(parsedData));
+
+                    window.location.href = 'politika.html';
+
+                } else {
+
+                    alert("Şifre yanlış!");
+
+                }
+
+            } else {
+
+                alert("Kullanıcı bulunamadı!");
+
+            }
+
+        } else {
+
+            // KAYIT SİSTEMİ
+
+            if (localStorage.getItem('academy_user_' + username)) {
+
+                alert("Bu kullanıcı adı zaten dolu!");
+
+                return;
+
+            }
+
+            const newUser = {
+
+                username: username,
+
+                password: password,
+
+                email: email, // E-posta verisini de kaydediyoruz
+
+                level: 1
+
+            };
+
+            localStorage.setItem('academy_user_' + username, JSON.stringify(newUser));
+
+            alert("Başarıyla kayıt oldun! Şimdi giriş yapabilirsin.");
+
+            toggleMode();
+
+        }
+
+    }
+
+</script>
+
+
+
+</body>
+
+</html>

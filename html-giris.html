@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoş Geldin | HTML Pro</title>
+    <style>
+        :root { --bg: #020617; --primary: #38bdf8; --text: #f8fafc; }
+        body { 
+            background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; 
+            margin: 0; display: flex; justify-content: center; align-items: center; 
+            min-height: 100vh; text-align: center; overflow: hidden;
+            background-image: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
+        }
+        .welcome-card { animation: zoomIn 1s ease-out; padding: 20px; }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+        
+        h1 { font-size: 3.5rem; font-weight: 900; text-shadow: 0 0 30px var(--primary); margin-bottom: 30px; }
+        .btn-start { 
+            background: var(--primary); color: #020617; border: none; padding: 20px 60px; 
+            border-radius: 50px; font-weight: 900; font-size: 1.5rem; cursor: pointer;
+            transition: 0.4s; box-shadow: 0 0 40px rgba(56, 189, 248, 0.4); text-transform: uppercase;
+        }
+        .btn-start:hover { transform: scale(1.1) translateY(-5px); background: #fff; box-shadow: 0 0 60px var(--primary); }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .btn-start { padding: 15px 40px; font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-card">
+        <h1>HTML Öğrenmeye Hoş Geldin!</h1>
+        <button class="btn-start" onclick="location.href='html2.html'">BAŞLA</button>
+    </div>
+</body>
+</html>
