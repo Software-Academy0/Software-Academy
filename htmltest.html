@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Academy | HTML Testi</title>
+    <style>
+        :root { --bg: #020617; --card: #0f172a; --primary: #38bdf8; --accent: #10b981; --text: #f8fafc; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: auto; }
+        .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid var(--primary); padding-bottom: 20px; }
+        
+        .quiz-card { background: var(--card); padding: 30px; border-radius: 20px; border: 1px solid rgba(56, 189, 248, 0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .question { font-size: 1.3rem; font-weight: bold; margin-bottom: 20px; color: var(--primary); }
+        
+        .options { display: grid; gap: 10px; }
+        .option { 
+            background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; cursor: pointer; 
+            transition: 0.3s; border: 1px solid transparent; 
+        }
+        .option:hover { background: rgba(56, 189, 248, 0.1); border-color: var(--primary); }
+        .option.correct { background: var(--accent) !important; color: #000; font-weight: bold; }
+        .option.wrong { background: #ef4444 !important; color: #fff; }
+
+        .footer { margin-top: 30px; display: flex; justify-content: space-between; align-items: center; }
+        .btn { padding: 12px 25px; border-radius: 10px; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn-next { background: var(--primary); color: #020617; }
+        .score-box { text-align: center; display: none; }
+        .progress-bar { height: 10px; background: #1e293b; border-radius: 5px; margin-bottom: 20px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--primary); width: 0%; transition: 0.5s; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>HTML Bilgi Testi</h1>
+        <p>50 Soruda Kendini Kanıtla!</p>
+    </div>
+
+    <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+    <div class="quiz-card" id="quiz-area">
+        <div id="question-text" class="question">Soru yükleniyor...</div>
+        <div id="options-area" class="options"></div>
+        <div class="footer">
+            <span id="current-count">Soru: 1 / 50</span>
+            <button class="btn btn-next" id="next-btn" onclick="nextQuestion()" style="display:none;">Sıradaki Soru</button>
+        </div>
+    </div>
+
+    <div id="result-area" class="quiz-card score-box">
+        <h2>Test Tamamlandı!</h2>
+        <p style="font-size: 2rem;" id="final-score">0 / 50</p>
+        <p id="score-comment"></p>
+        <button class="btn btn-next" onclick="location.reload()">Tekrar Çöz</button>
+        <button class="btn btn-next" onclick="window.location.href='software-academy.html'" style="background:var(--accent); margin-left:10px;">Eğitime Dön</button>
+    </div>
+</div>
+
+<script>
+    const allQuestions = [
+        { q: "HTML'in açılımı nedir?", a: ["Hyper Text Markup Language", "High Tech Modern Language", "Hyper Transfer Markup Language", "Home Tool Markup Language"], c: 0 },
+        { q: "En büyük başlık etiketi hangisidir?", a: ["<h6>", "<h1>", "<head>", "<heading>"], c: 1 },
+        { q: "Bağlantı (link) eklemek için hangi etiket kullanılır?", a: ["<link>", "<a>", "<href>", "<url>"], c: 1 },
+        { q: "Satır atlamak (alt satır) için hangisi kullanılır?", a: ["<br>", "<break>", "<lb>", "<p>"], c: 0 },
+        { q: "Hangisi bir liste öğesini temsil eder?", a: ["<ul>", "<ol>", "<li>", "<list>"], c: 2 },
+        { q: "Resim eklemek için hangi etiket kullanılır?", a: ["<image>", "<img>", "<pic>", "<src>"], c: 1 },
+        { q: "HTML'de yorum satırı nasıl yazılır?", a: ["// yorum", "/* yorum */", "", "# yorum"], c: 2 },
+        { q: "Bir formun gönderileceği adresi hangi nitelik belirler?", a: ["method", "action", "target", "href"], c: 1 },
+        { q: "Tablo satırı oluşturmak için hangisi kullanılır?", a: ["<td>", "<th>", "<tr>", "<table>"], c: 2 },
+        { q: "Boşluk bırakmak için kullanılan karakter kodu hangisidir?", a: ["&blank;", "&nbsp;", "&space;", "&copy;"], c: 1 },
+        // Buraya 50'ye kadar benzer mantıkla soru ekleyebilirsin...
+    ];
+
+    // Soruları 50'ye tamamlamak için örnekler (Sen burayı çoğaltabilirsin)
+    for(let i=11; i<=50; i++) {
+        allQuestions.push({ q: `HTML Soru ${i}: <title> etiketi nerede bulunur?`, a: ["<body>", "<head>", "<footer>", "<nav>"], c: 1 });
+    }
+
+    let currentQ = 0;
+    let score = 0;
+    let answered = false;
+
+    function loadQuestion() {
+        answered = false;
+        document.getElementById('next-btn').style.display = 'none';
+        const qData = allQuestions[currentQ];
+        document.getElementById('question-text').innerText = `${currentQ + 1}. ${qData.q}`;
+        document.getElementById('current-count').innerText = `Soru: ${currentQ + 1} / ${allQuestions.length}`;
+        document.getElementById('progress').style.width = `${((currentQ + 1) / allQuestions.length) * 100}%`;
+
+        const optionsArea = document.getElementById('options-area');
+        optionsArea.innerHTML = "";
+        qData.a.forEach((opt, index) => {
+            const div = document.createElement('div');
+            div.className = 'option';
+            div.innerText = opt;
+            div.onclick = () => checkAnswer(index, div);
+            optionsArea.appendChild(div);
+        });
+    }
+
+    function checkAnswer(idx, element) {
+        if(answered) return;
+        answered = true;
+        const correctIdx = allQuestions[currentQ].c;
+        const options = document.getElementsByClassName('option');
+
+        if(idx === correctIdx) {
+            element.classList.add('correct');
+            score++;
+        } else {
+            element.classList.add('wrong');
+            options[correctIdx].classList.add('correct');
+        }
+        document.getElementById('next-btn').style.display = 'block';
+    }
+
+    function nextQuestion() {
+        currentQ++;
+        if(currentQ < allQuestions.length) {
+            loadQuestion();
+        } else {
+            showResult();
+        }
+    }
+
+    function showResult() {
+        document.getElementById('quiz-area').style.display = 'none';
+        const resultArea = document.getElementById('result-area');
+        resultArea.style.display = 'block';
+        document.getElementById('final-score').innerText = `${score} / ${allQuestions.length}`;
+        
+        let msg = "";
+        if(score > 40) msg = "Efsanesin Salih! Gerçek bir HTML ustasısın.";
+        else if(score > 25) msg = "Güzel gidiyorsun, biraz daha pratikle her şeyi çözersin.";
+        else msg = "Derslere biraz daha göz atmalısın, vazgeçme!";
+        document.getElementById('score-comment').innerText = msg;
+    }
+
+    loadQuestion();
+</script>
+</body>
+</html>

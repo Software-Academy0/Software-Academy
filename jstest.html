@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Academy | CSS Testi</title>
+    <style>
+        :root { --bg: #020617; --card: #0f172a; --primary: #38bdf8; --accent: #10b981; --text: #f8fafc; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: auto; }
+        .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid var(--primary); padding-bottom: 20px; }
+        
+        .quiz-card { background: var(--card); padding: 30px; border-radius: 20px; border: 1px solid rgba(56, 189, 248, 0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .question { font-size: 1.3rem; font-weight: bold; margin-bottom: 20px; color: var(--primary); }
+        
+        .options { display: grid; gap: 10px; }
+        .option { 
+            background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; cursor: pointer; 
+            transition: 0.3s; border: 1px solid transparent; 
+        }
+        .option:hover { background: rgba(56, 189, 248, 0.1); border-color: var(--primary); }
+        .option.correct { background: var(--accent) !important; color: #000; font-weight: bold; }
+        .option.wrong { background: #ef4444 !important; color: #fff; }
+
+        .footer { margin-top: 30px; display: flex; justify-content: space-between; align-items: center; }
+        .btn { padding: 12px 25px; border-radius: 10px; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn-next { background: var(--primary); color: #020617; }
+        .score-box { text-align: center; display: none; }
+        .progress-bar { height: 10px; background: #1e293b; border-radius: 5px; margin-bottom: 20px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--primary); width: 0%; transition: 0.5s; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>CSS Bilgi Testi</h1>
+        <p>Stil ve Tasarımda Ne Kadar İyisin?</p>
+    </div>
+
+    <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+    <div class="quiz-card" id="quiz-area">
+        <div id="question-text" class="question">Yükleniyor...</div>
+        <div id="options-area" class="options"></div>
+        <div class="footer">
+            <span id="current-count">Soru: 1 / 50</span>
+            <button class="btn btn-next" id="next-btn" onclick="nextQuestion()" style="display:none;">Sonraki Soru</button>
+            <a href="software-academy.html">Geri Dön!</a>
+        </div>
+    </div>
+
+    <div id="result-area" class="quiz-card score-box">
+        <h2>CSS Testi Bitti!</h2>
+        <p style="font-size: 2rem;" id="final-score">0 / 50</p>
+        <p id="score-comment"></p>
+        <button class="btn btn-next" onclick="location.reload()">Baştan Başla</button>
+        <button class="btn btn-next" onclick="window.location.href='software-academy.html'" style="background:var(--accent); margin-left:10px;">Geri Dön</button>
+    </div>
+</div>
+
+<script>
+    const cssQuestions = [
+        { q: "CSS'in açılımı nedir?", a: ["Creative Style Sheets", "Cascading Style Sheets", "Colorful Style Sheets", "Computer Style Sheets"], c: 1 },
+        { q: "Bir HTML etiketine dışarıdan stil dosyası bağlamak için hangisi kullanılır?", a: ["<style>", "<link>", "<script>", "<css>"], c: 1 },
+        { q: "Bir elemanın arka plan rengini değiştirmek için hangi özellik kullanılır?", a: ["color", "bgcolor", "background-color", "fill"], c: 2 },
+        { q: "Yazı rengini değiştirmek için hangi CSS özelliği kullanılır?", a: ["text-style", "font-color", "color", "text-color"], c: 2 },
+        { q: "Bir elemanın iç boşluğunu (padding) ayarlamak için hangisi doğrudur?", a: ["margin", "border", "padding", "spacing"], c: 2 },
+        { q: "ID seçicisi CSS'de hangi işaret ile belirtilir?", a: [". (Nokta)", "# (Diyez)", "* (Yıldız)", "@ (At)"], c: 1 },
+        { q: "Class (Sınıf) seçicisi CSS'de hangi işaret ile belirtilir?", a: ["#", "@", ".", "!"], c: 2 },
+        { q: "Flexbox'ta elemanları yan yana (satır) dizmek için hangi değer kullanılır?", a: ["flex-direction: column", "display: block", "flex-direction: row", "align-items: center"], c: 2 },
+        { q: "Elemanı tamamen görünmez yapmak ama yer kaplamasını sağlamak için hangisi kullanılır?", a: ["display: none", "visibility: hidden", "opacity: 1", "position: absolute"], c: 1 },
+        { q: "Bir yazının altındaki çizgiyi kaldırmak için hangisi kullanılır?", a: ["text-decoration: none", "text-style: none", "font-weight: normal", "decoration: none"], c: 0 },
+        { q: "En dıştaki boşluğu (elemanlar arası mesafe) hangisi belirler?", a: ["padding", "border", "margin", "outline"], c: 2 },
+        { q: "Bir yazı tipini (font) değiştirmek için hangi özellik kullanılır?", a: ["font-style", "font-family", "text-font", "font-weight"], c: 1 },
+        { q: "Hover efekti ne zaman tetiklenir?", a: ["Tıklanınca", "Sayfa açılınca", "Fare üzerine gelince", "Yazı yazınca"], c: 2 },
+        { q: "CSS'de yorum satırı nasıl başlar ve biter?", a: ["//", "", "/* */", "# #"], c: 2 },
+        { q: "Ekran genişliğine göre stil değiştirmek için hangisi kullanılır?", a: ["@import", "@font-face", "@media", "@keyframes"], c: 2 }
+    ];
+
+    // Soruları 50'ye tamamlayan döngü (Örnek içerikler)
+    for(let i=16; i<=50; i++) {
+        cssQuestions.push({ q: `CSS Soru ${i}: 'z-index' ne işe yarar?`, a: ["Renk tonu", "Yazı boyutu", "Katman sıralaması", "Genişlik"], c: 2 });
+    }
+
+    let currentQ = 0;
+    let score = 0;
+    let answered = false;
+
+    function loadQuestion() {
+        answered = false;
+        document.getElementById('next-btn').style.display = 'none';
+        const qData = cssQuestions[currentQ];
+        document.getElementById('question-text').innerText = `${currentQ + 1}. ${qData.q}`;
+        document.getElementById('current-count').innerText = `Soru: ${currentQ + 1} / ${cssQuestions.length}`;
+        document.getElementById('progress').style.width = `${((currentQ + 1) / cssQuestions.length) * 100}%`;
+
+        const optionsArea = document.getElementById('options-area');
+        optionsArea.innerHTML = "";
+        qData.a.forEach((opt, index) => {
+            const div = document.createElement('div');
+            div.className = 'option';
+            div.innerText = opt;
+            div.onclick = () => checkAnswer(index, div);
+            optionsArea.appendChild(div);
+        });
+    }
+
+    function checkAnswer(idx, element) {
+        if(answered) return;
+        answered = true;
+        const correctIdx = cssQuestions[currentQ].c;
+        const options = document.getElementsByClassName('option');
+
+        if(idx === correctIdx) {
+            element.classList.add('correct');
+            score++;
+        } else {
+            element.classList.add('wrong');
+            options[correctIdx].classList.add('correct');
+        }
+        document.getElementById('next-btn').style.display = 'block';
+    }
+
+    function nextQuestion() {
+        currentQ++;
+        if(currentQ < cssQuestions.length) {
+            loadQuestion();
+        } else {
+            showResult();
+        }
+    }
+
+    function showResult() {
+        document.getElementById('quiz-area').style.display = 'none';
+        const resultArea = document.getElementById('result-area');
+        resultArea.style.display = 'block';
+        document.getElementById('final-score').innerText = `${score} / ${cssQuestions.length}`;
+        
+        let msg = "";
+        if(score > 40) msg = "Mükemmel! Tasarımın kralı sensin.";
+        else if(score > 20) msg = "Fena değil, CSS seçicileri üzerine biraz daha çalışmalısın.";
+        else msg = "Stil dosyalarına geri dönme vakti! Pes etme.";
+        document.getElementById('score-comment').innerText = msg;
+    }
+
+    loadQuestion();
+</script>
+</body>
+</html>
