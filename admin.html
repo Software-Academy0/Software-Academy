@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Software Academy | Admin Panel</title>
+    <style>
+        :root { --bg: #020617; --primary: #38bdf8; --text: #f8fafc; }
+        body { background: var(--bg); color: var(--text); font-family: sans-serif; padding: 20px; }
+        .stats-card { background: #1e293b; padding: 20px; border-radius: 15px; border: 1px solid var(--primary); margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; border: 1px solid rgba(56, 189, 248, 0.2); text-align: left; }
+        th { background: var(--primary); color: #020617; }
+        .btn-delete { background: #ef4444; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Admin Kontrol Paneli</h1>
+    
+    <div class="stats-card">
+        <h3>Toplam Kayıtlı Öğrenci: <span id="totalUsers">0</span></h3>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Kullanıcı Adı</th>
+                <th>E-Posta</th>
+                <th>Seviye</th>
+                <th>İşlem</th>
+            </tr>
+        </thead>
+        <tbody id="userTableBody">
+            </tbody>
+    </table>
+
+    <script>
+        function loadUsers() {
+            const tableBody = document.getElementById('userTableBody');
+            const totalSpan = document.getElementById('totalUsers');
+            let userCount = 0;
+            tableBody.innerHTML = "";
+
+            // LocalStorage içindeki tüm anahtarları dönüyoruz
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                
+                // Sadece bizim kullanıcı verilerimizi al (academy_user_ ile başlayanlar)
+                if (key.startsWith('academy_user_')) {
+                    userCount++;
+                    const userData = JSON.parse(localStorage.getItem(key));
+                    
+                    const row = `<tr>
+                        <td>${userData.username}</td>
+                        <td>${userData.email}</td>
+                        <td>${userData.level}</td>
+                        <td><button class="btn-delete" onclick="deleteUser('${key}')">Sil</button></td>
+                    </tr>`;
+                    tableBody.innerHTML += row;
+                }
+            }
+            totalSpan.innerText = userCount;
+        }
+
+        function deleteUser(key) {
+            if(confirm("Bu kullanıcıyı silmek istediğine emin misin?")) {
+                localStorage.removeItem(key);
+                loadUsers();
+            }
+        }
+
+        // Sayfa açıldığında verileri yükle
+        loadUsers();
+    </script>
+</body>
+</html>
