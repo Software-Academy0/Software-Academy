@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux | Klavye Kısayolları</title>
+    <style>
+        :root { --bg: #0a0a0a; --card: #121212; --primary: #10b981; --accent: #059669; --text: #ecfdf5; }
+        body { 
+            background: var(--bg); color: var(--text); font-family: 'Fira Code', 'Ubuntu Mono', monospace; 
+            margin: 0; padding-bottom: 50px;
+        }
+        .header { 
+            background: rgba(18, 18, 18, 0.9); padding: 30px; text-align: center;
+            border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px);
+        }
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        .intro-text { text-align: center; margin-bottom: 40px; color: var(--primary); font-weight: bold; font-size: 1.2rem; }
+        .code-card { 
+            background: var(--card); border-radius: 15px; padding: 25px; margin-bottom: 20px;
+            border: 1px solid rgba(16, 185, 129, 0.1); transition: 0.3s;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        .code-card:hover { border-color: var(--primary); transform: scale(1.02); background: #171717; }
+        .tag-name { color: var(--primary); font-size: 1.4rem; font-weight: 900; }
+        .tag-desc { margin-top: 10px; color: #a7f3d0; line-height: 1.6; font-size: 1.1rem; opacity: 0.8; }
+        .bt { color: #f43f5e; text-decoration: none; font-weight: bold; font-size: 0.9rem; border: 1px solid #f43f5e; padding: 5px 10px; border-radius: 5px; }
+        
+        @media (max-width: 768px) {
+            .tag-name { font-size: 1.1rem; }
+            .tag-desc { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1 style="margin:0; font-size: 1.8rem; letter-spacing: 2px; color: var(--primary);">LINUX TERMINAL & DESKTOP</h1>
+        <a class="bt" href="software-academy.html">← Eğitime Geri Dön</a>
+    </header>
+    
+    <div class="container">
+        <p class="intro-text">Salih, Terminal'de ustalaşmak ve Linux'u uçurmak için bu kısayolları ezberle:</p>
+        <div id="list-area"></div>
+    </div>
+
+<script>
+    const linuxShortcuts = [
+        { t: "Ctrl + Alt + T", d: "Terminal'i (Uçbirim) anında açar." },
+        { t: "Ctrl + C", d: "Terminal'de çalışan mevcut işlemi durdurur / iptal eder." },
+        { t: "Ctrl + Z", d: "Çalışan işlemi arka plana atar ve duraklatır." },
+        { t: "Ctrl + L", d: "Terminal ekranını temizler (clear komutu ile aynı)." },
+        { t: "Ctrl + D", d: "Mevcut terminal oturumunu kapatır (Log out)." },
+        { t: "Ctrl + A / Ctrl + E", d: "Terminal satırının başına / sonuna gider." },
+        { t: "Ctrl + U / Ctrl + K", d: "Satırın başından / sonundan itibaren metni siler." },
+        { t: "Ctrl + R", d: "Terminal geçmişinde (History) arama yapar." },
+        { t: "Tab", d: "Dosya veya komut isimlerini otomatik tamamlar (En çok kullanılan)." },
+        { t: "Alt + Tab", d: "Pencereler arasında geçiş yapar." },
+        { t: "Ctrl + Alt + L", d: "Ekranı anında kilitler (Çoğu Linux dağıtımında)." },
+        { t: "Win (Super) + Sayı", d: "Taskbar'daki (Dock) uygulamaları sırayla açar." },
+        { t: "Shift + Insert", d: "Terminal'e panodaki metni yapıştırır." },
+        { t: "Ctrl + Shift + C / V", d: "Terminal içinde kopyala ve yapıştır yapar." },
+        { t: "Win + Ok Tuşları", d: "Pencereleri ekranın köşelerine yaslar." },
+        { t: "Ctrl + Alt + Del", d: "Oturumu kapatma veya sistemi yeniden başlatma ekranını açar." },
+        { t: "Alt + F2", d: "Hızlı komut çalıştırma kutusunu açar." },
+        { t: "Win + D", d: "Tüm pencereleri gizler, masaüstünü gösterir." },
+        { t: "Shift + PrtSc", d: "Ekranın belirli bir alanının ekran görüntüsünü alır." },
+        { t: "Ctrl + H", d: "Dosya yöneticisinde gizli dosyaları gösterir / gizler." },
+        { t: "Ctrl + Alt + F1-F6", d: "Farklı TTY terminallerine geçiş yapar (Sadece profesyoneller için!)." },
+        { t: "Alt + F4", d: "Aktif pencereyi kapatır." },
+        { t: "Win + A", d: "Uygulama menüsünü açar (Gnome)." },
+        { t: "Ctrl + Alt + Yukarı/Aşağı", d: "Çalışma alanları (Workspaces) arasında geçiş yapar." },
+        { t: "Ctrl + Q", d: "Uygulamadan çıkış yapar." }
+    ];
+
+    const listArea = document.getElementById('list-area');
+    linuxShortcuts.forEach((item, index) => {
+        listArea.innerHTML += `
+            <div class="code-card">
+                <div class="tag-name">${index + 1}. ${item.t}</div>
+                <div class="tag-desc">${item.d}</div>
+            </div>
+        `;
+    });
+</script>
+</body>
+</html>

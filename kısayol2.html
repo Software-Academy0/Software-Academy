@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MacOS | Klavye Kısayolları</title>
+    <style>
+        :root { --bg: #0b0f19; --card: #161b2a; --primary: #fbbf24; --accent: #f59e0b; --text: #f8fafc; }
+        body { 
+            background: var(--bg); color: var(--text); font-family: 'SF Pro Display', -apple-system, sans-serif; 
+            margin: 0; padding-bottom: 50px;
+        }
+        .header { 
+            background: rgba(22, 27, 42, 0.9); padding: 30px; text-align: center;
+            border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px);
+        }
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        .intro-text { text-align: center; margin-bottom: 40px; color: var(--primary); font-weight: bold; font-size: 1.2rem; }
+        .code-card { 
+            background: var(--card); border-radius: 20px; padding: 25px; margin-bottom: 20px;
+            border: 1px solid rgba(251, 191, 36, 0.1); transition: 0.3s;
+        }
+        .code-card:hover { border-color: var(--primary); transform: translateX(10px); background: #1e293b; }
+        .tag-name { color: var(--primary); font-family: 'Consolas', monospace; font-size: 1.5rem; font-weight: 900; }
+        .tag-desc { margin-top: 10px; color: #cbd5e1; line-height: 1.6; font-size: 1.1rem; }
+        .bt { color: #f87171; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
+        
+        @media (max-width: 768px) {
+            .tag-name { font-size: 1.2rem; }
+            .tag-desc { font-size: 1rem; }
+            .code-card:hover { transform: none; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1 style="margin:0; font-size: 1.8rem; letter-spacing: 2px;">MacOS KISAYOL REHBERİ</h1>
+        <a class="bt" href="software-academy.html">← Eğitime Geri Dön</a>
+    </header>
+    
+    <div class="container">
+        <p class="intro-text">Salih, işte MacBook ve iMac kullanıcılarını hızlandıracak profesyonel liste:</p>
+        <div id="list-area"></div>
+    </div>
+
+<script>
+    const macShortcuts = [
+        { t: "Command + Space", d: "Spotlight Araması'nı açar (Her şeyi bulmanı sağlar)." },
+        { t: "Command + Tab", d: "Açık uygulamalar arasında hızlı geçiş yapar." },
+        { t: "Command + Q", d: "Öndeki uygulamadan tamamen çıkar (Kapatır)." },
+        { t: "Command + W", d: "Öndeki pencereyi veya sekmeyi kapatır." },
+        { t: "Command + N", d: "Yeni bir pencere veya dosya açar." },
+        { t: "Command + Shift + 3", d: "Tüm ekranın fotoğrafını çeker." },
+        { t: "Command + Shift + 4", d: "Ekranın seçtiğin bir kısmının fotoğrafını çeker." },
+        { t: "Command + Shift + 5", d: "Ekran kaydı ve ekran görüntüsü panelini açar." },
+        { t: "Command + Control + Q", d: "Ekranı anında kilitler." },
+        { t: "Command + Option + Esc", d: "Uygulamaları Zorla Çıkmaya Zorla (Görev Yöneticisi gibi)." },
+        { t: "Command + virgül (,)", d: "Açık olan uygulamanın ayarlarını açar." },
+        { t: "Command + C", d: "Seçili öğeyi kopyalar." },
+        { t: "Command + V", d: "Kopyalanan öğeyi yapıştırır." },
+        { t: "Command + Z", d: "Yapılan işlemi geri alır." },
+        { t: "Command + A", d: "Tüm öğeleri seçer." },
+        { t: "Command + F", d: "Sayfa içinde veya dosyada arama yapar." },
+        { t: "Command + S", d: "Mevcut belgeyi kaydeder." },
+        { t: "Command + T", d: "Tarayıcıda veya Finder'da yeni sekme açar." },
+        { t: "Command + Delete", d: "Seçili dosyayı çöp sepetine taşır." },
+        { t: "Command + Shift + Delete", d: "Çöp sepetini boşaltır." },
+        { t: "Control + Command + Space", d: "Karakter görüntüleyiciyi (Emoji Paneli) açar." },
+        { t: "Option + Command + D", d: "Dock'u (alt menü) gizler veya gösterir." },
+        { t: "Space (Boşluk)", d: "Seçili dosyayı açmadan hızlıca önizleme yapar (Quick Look)." },
+        { t: "Command + Yukarı Ok", d: "Finder'da bir üst klasöre çıkar." },
+        { t: "Command + Alt + V", d: "Dosyayı taşımak için 'Buraya Taşı' işlemini yapar." }
+    ];
+
+    const listArea = document.getElementById('list-area');
+    macShortcuts.forEach((item, index) => {
+        listArea.innerHTML += `
+            <div class="code-card">
+                <div class="tag-name">${index + 1}. ${item.t}</div>
+                <div class="tag-desc">${item.d}</div>
+            </div>
+        `;
+    });
+</script>
+</body>
+</html>
