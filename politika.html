@@ -2,104 +2,85 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Politika & Şartlar | Software Academy</title>
+    <title>Software Academy | Kullanıcı Politikası</title>
     <style>
-        :root { 
-            --bg: #020617; 
-            --card: rgba(30, 41, 59, 0.7); 
-            --primary: #38bdf8; 
-            --accent: #818cf8; 
-            --text: #f1f5f9; 
-        }
-        
-        body { 
-            background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; 
-            margin: 0; line-height: 1.6;
-            background-image: radial-gradient(circle at bottom left, #1e293b 0%, #020617 100%);
-            min-height: 100vh;
-        }
-
-        .container { max-width: 800px; margin: 60px auto; padding: 20px; }
-
-        .policy-box { 
-            background: var(--card); border-radius: 30px; padding: 40px; 
-            border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(15px);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-        }
-
-        h1 { color: var(--primary); font-size: 2.5rem; margin-bottom: 10px; text-align: center; }
-        .last-update { text-align: center; color: var(--accent); font-size: 0.9rem; margin-bottom: 40px; }
-
-        section { margin-bottom: 30px; }
-        h2 { color: var(--primary); border-left: 4px solid var(--primary); padding-left: 15px; font-size: 1.5rem; }
-        p { color: #cbd5e1; margin-top: 10px; }
-
-        .highlight { color: var(--accent); font-weight: bold; }
-
-        .back-btn {
-            display: inline-block; margin-top: 20px; background: var(--primary);
-            color: #020617; text-decoration: none; padding: 12px 30px;
-            border-radius: 50px; font-weight: 900; transition: 0.3s;
-        }
-        .back-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--primary); }
-
-        footer { text-align: center; margin-top: 50px; padding: 20px; color: #64748b; font-size: 0.8rem; }
-
-        @media (max-width: 768px) {
-            .policy-box { padding: 20px; }
-            h1 { font-size: 1.8rem; }
-        }
+        :root { --bg: #020617; --primary: #38bdf8; --card: #1e293b; --text: #f8fafc; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; padding: 40px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .info-card { background: var(--card); padding: 25px; border-radius: 20px; border: 1px solid var(--primary); box-shadow: 0 0 30px rgba(56,189,248,0.1); }
+        h2 { color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
+        .user-list { list-style: none; padding: 0; margin-top: 20px; }
+        .user-item { background: rgba(255,255,255,0.05); padding: 10px 15px; margin-bottom: 8px; border-radius: 8px; display: flex; justify-content: space-between; }
+        .admin-badge { background: #ef4444; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; }
+        .stats { font-size: 1.2rem; font-weight: bold; color: var(--primary); margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="policy-box">
-            <h1>Gizlilik Politikası</h1>
-            <p class="last-update">Son Güncelleme: 29 Mart 2026</p>
-
-            <section>
-                <h2>1. Veri Sorumlusu</h2>
-                <p>Bu uygulama, <span class="highlight">Salih Şenel</span> tarafından geliştirilen bir eğitim platformudur. Yazılım öğrenme sürecinizi takip etmek amacıyla oluşturulmuştur.</p>
-            </section>
-
-            <section>
-                <h2>2. Toplanan Veriler</h2>
-                <p>Uygulamamız sadece yerel depolama (sessionStorage/localStorage) kullanarak aşağıdaki verileri işler:</p>
-                <ul>
-                    <li>Kullanıcı adınız (Kişiselleştirilmiş karşılama için).</li>
-                    <li>Eğitim ilerleme seviyeniz (Seviye barı için).</li>
-                    <li>Aktif çalıştığınız programlama dili.</li>
-                </ul>
-            </section>
-
-            <section>
-                <h2>3. Verilerin Kullanımı</h2>
-                <p>Toplanan veriler hiçbir şekilde üçüncü şahıslarla paylaşılmaz veya reklam amaçlı kullanılmaz. Veriler sadece tarayıcınızda saklanır ve <span class="highlight">ÇIKIŞ</span> butonuna bastığınızda temizlenir.</p>
-            </section>
-
-            <section>
-                <h2>4. Kullanım Şartları</h2>
-                <p>Software Academy içerisindeki kodlar eğitim amaçlıdır. Bu kodları kendi projelerinizde özgürce kullanabilirsiniz. Ancak platformun tasarımının kopyalanıp ticari amaçla satılması yasaktır.</p>
-            </section>
-
-            <section>
-                <h2>5. İletişim</h2>
-                <p>Politikalar hakkında sorularınız için geliştirici ile iletişime geçebilirsiniz.</p>
-                <a href="https://www.instagram.com/magicsoftwaredevelopers?igsh=MWhnbmRtNWN1cDY4OQ%3D%3D&utm_source=qr">İnstagramz</a>
-                <h1>E-Posta Adresimiz:software-academy@outlook.com</h1>
-            </section>
-
-            <div style="text-align: center;">
-                <a href="software-academy.html" class="back-btn">KABUL EDİYORUM VE BAŞLA</a>
-            </div>
+<div class="container">
+    <div class="info-card">
+        <h2 id="viewTitle">Kullanıcı Bilgileri</h2>
+        <div id="adminStats" style="display: none;">
+            <p class="stats">Toplam Kayıtlı Öğrenci: <span id="userCount">0</span></p>
         </div>
+        
+        <ul id="displayArea" class="user-list">
+            </ul>
 
-        <footer>
-            © 2026 Salih's Software Academy. Tüm hakları saklıdır.
-        </footer>
+        <button onclick="logout()" style="margin-top:20px; padding:10px; cursor:pointer; background:none; border:1px solid #ef4444; color:#ef4444; border-radius:10px;">Çıkış Yap</button>
     </div>
+</div>
+
+<script>
+    // Giriş yapan kullanıcıyı kontrol et
+    const activeUser = JSON.parse(sessionStorage.getItem('activeUser'));
+
+    if (!activeUser) {
+        alert("Yetkisiz erişim! Giriş sayfasına yönlendiriliyorsunuz.");
+        window.location.href = 'index.html';
+    }
+
+    const displayArea = document.getElementById('displayArea');
+    const adminStats = document.getElementById('adminStats');
+    const viewTitle = document.getElementById('viewTitle');
+
+    // MANTIK BURADA ÇALIŞIYOR
+    if (activeUser.username === "admin") {
+        // --- EĞER ADMİN İSE HERKESİ GÖSTER ---
+        viewTitle.innerText = "Yönetici Paneli - Tüm Kullanıcılar";
+        adminStats.style.display = "block";
+        
+        let count = 0;
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key.startsWith('academy_user_')) {
+                count++;
+                const user = JSON.parse(localStorage.getItem(key));
+                displayArea.innerHTML += `<li class="user-item">
+                    <span>👤 ${user.username}</span>
+                    <span>📧 ${user.email}</span>
+                </li>`;
+            }
+        }
+        document.getElementById('userCount').innerText = count;
+
+    } else {
+        // --- EĞER NORMAL KULLANICI İSE SADECE KENDİSİNİ GÖSTER ---
+        viewTitle.innerText = "Profil Bilgilerim";
+        displayArea.innerHTML = `<li class="user-item" style="border-left: 4px solid var(--primary);">
+            <span><strong>İsim:</strong> ${activeUser.username}</span>
+            <span><strong>E-Posta:</strong> ${activeUser.email}</span>
+        </li>
+        <p style="opacity:0.6; font-size:0.9rem; margin-top:15px;">
+            * Güvenlik gereği diğer öğrencilerin isimlerini görme yetkiniz yoktur.
+        </p>`;
+    }
+
+    function logout() {
+        sessionStorage.removeItem('activeUser');
+        window.location.href = 'software-academy.html';
+    }
+</script>
 
 </body>
 </html>
