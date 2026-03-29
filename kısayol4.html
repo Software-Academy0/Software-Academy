@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pardus | Klavye Kısayolları</title>
+    <style>
+        :root { --bg: #001b2e; --card: #002b49; --primary: #00b4d8; --accent: #90e0ef; --text: #caf0f8; }
+        body { 
+            background: var(--bg); color: var(--text); font-family: 'Ubuntu', sans-serif; 
+            margin: 0; padding-bottom: 50px;
+        }
+        .header { 
+            background: rgba(0, 43, 73, 0.9); padding: 30px; text-align: center;
+            border-bottom: 3px solid var(--primary); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px);
+        }
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        .intro-text { text-align: center; margin-bottom: 40px; color: var(--primary); font-weight: bold; font-size: 1.2rem; }
+        .code-card { 
+            background: var(--card); border-radius: 15px; padding: 25px; margin-bottom: 20px;
+            border: 1px solid rgba(0, 180, 216, 0.2); transition: 0.3s;
+        }
+        .code-card:hover { border-color: var(--primary); transform: translateY(-5px); background: #003554; }
+        .tag-name { color: var(--primary); font-family: 'Consolas', monospace; font-size: 1.4rem; font-weight: 900; }
+        .tag-desc { margin-top: 10px; color: #90e0ef; line-height: 1.6; font-size: 1.1rem; }
+        .bt { color: #ff4d6d; text-decoration: none; font-weight: bold; font-size: 0.9rem; border: 1px solid #ff4d6d; padding: 6px 12px; border-radius: 8px; }
+        
+        @media (max-width: 768px) {
+            .tag-name { font-size: 1.1rem; }
+            .tag-desc { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1 style="margin:0; font-size: 1.8rem; letter-spacing: 1px;">PARDUS KISAYOL REHBERİ</h1>
+        <a class="bt" href="software-academy.html">← Eğitime Geri Dön</a>
+    </header>
+    
+    <div class="container">
+        <p class="intro-text">Salih, yerli ve milli işletim sistemimiz Pardus'ta seni hızlandıracak komutlar:</p>
+        <div id="list-area"></div>
+    </div>
+
+<script>
+    const pardusShortcuts = [
+        { t: "Win (Super) Tuşu", d: "Pardus ana menüsünü (Uygulamalar) açar." },
+        { t: "Ctrl + Alt + T", d: "Pardus Uçbirim'i (Terminal) anında başlatır." },
+        { t: "Ctrl + Alt + L", d: "Ekranı hızlıca kilitler (Güvenlik için)." },
+        { t: "Alt + F2", d: "Uygulama çalıştırıcıyı açar (Komut yazıp açmak için)." },
+        { t: "Alt + F4", d: "Aktif olan pencereyi kapatır." },
+        { t: "Alt + Tab", d: "Açık pencereler arasında hızlı geçiş yapar." },
+        { t: "Win + D", d: "Tüm pencereleri küçültüp masaüstünü gösterir." },
+        { t: "Win + L", d: "Kullanıcıyı kilitleyip oturum kapatma ekranına atar." },
+        { t: "Print Screen", d: "Tüm ekranın görüntüsünü alır." },
+        { t: "Alt + Print Screen", d: "Sadece aktif olan pencerenin görüntüsünü alır." },
+        { t: "Ctrl + Alt + Del", d: "Görev yöneticisi veya oturum kapatma menüsünü getirir." },
+        { t: "Ctrl + Shift + Esc", d: "Pardus Görev Yöneticisi'ni doğrudan açar (XFCE)." },
+        { t: "Win + Ok Tuşları", d: "Pencereyi ekranın sağına, soluna veya köşelerine yaslar." },
+        { t: "Ctrl + H", d: "Dosya yöneticisinde gizli (. ile başlayan) dosyaları gösterir." },
+        { t: "F2", d: "Seçili dosya veya klasörün adını değiştirir." },
+        { t: "F5", d: "Masaüstünü veya açık olan klasörü yeniler." },
+        { t: "Ctrl + Q", d: "Uygulamadan çıkış yapmanı sağlar." },
+        { t: "Win + E", d: "Ev dizinini (Dosya Yöneticisi) açar." },
+        { t: "Ctrl + Alt + Esc", d: "Donan bir uygulamayı üzerine tıklayarak kapatmanı sağlar (Xkill)." },
+        { t: "Ctrl + T", d: "Dosya yöneticisinde yeni bir sekme açar." }
+    ];
+
+    const listArea = document.getElementById('list-area');
+    pardusShortcuts.forEach((item, index) => {
+        listArea.innerHTML += `
+            <div class="code-card">
+                <div class="tag-name">${index + 1}. ${item.t}</div>
+                <div class="tag-desc">${item.d}</div>
+            </div>
+        `;
+    });
+</script>
+</body>
+</html>
