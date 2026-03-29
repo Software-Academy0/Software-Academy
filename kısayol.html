@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows 10/11 | Klavye Kısayolları</title>
+    <style>
+        :root { --bg: #020617; --card: #0f172a; --primary: #38bdf8; --accent: #10b981; --text: #f8fafc; }
+        body { 
+            background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; 
+            margin: 0; padding-bottom: 50px;
+        }
+        .header { 
+            background: rgba(15, 23, 42, 0.9); padding: 30px; text-align: center;
+            border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px);
+        }
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        .intro-text { text-align: center; margin-bottom: 40px; color: var(--primary); font-weight: bold; font-size: 1.2rem; }
+        .code-card { 
+            background: var(--card); border-radius: 20px; padding: 25px; margin-bottom: 20px;
+            border: 1px solid rgba(56, 189, 248, 0.1); transition: 0.3s;
+        }
+        .code-card:hover { border-color: var(--primary); transform: translateX(10px); background: #1e293b; }
+        .tag-name { color: var(--primary); font-family: 'Consolas', monospace; font-size: 1.5rem; font-weight: 900; }
+        .tag-desc { margin-top: 10px; color: #cbd5e1; line-height: 1.6; font-size: 1.1rem; }
+        .bt { color: #ef4444; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
+        
+        @media (max-width: 768px) {
+            .tag-name { font-size: 1.2rem; }
+            .tag-desc { font-size: 1rem; }
+            .code-card:hover { transform: none; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1 style="margin:0; font-size: 1.8rem; letter-spacing: 2px;">WINDOWS KISAYOL REHBERİ</h1>
+        <a class="bt" href="software-academy.html">← Eğitime Geri Dön</a>
+    </header>
+    
+    <div class="container">
+        <p class="intro-text">Salih, işte Windows kullanırken hızını 10 kat artıracak o dev liste:</p>
+        <div id="list-area"></div>
+    </div>
+
+<script>
+    const shortcuts = [
+        { t: "Win + L", d: "Bilgisayarı anında kilitler (Ekranı kapatır)." },
+        { t: "Win + D", d: "Tüm pencereleri gizler, masaüstünü gösterir." },
+        { t: "Win + E", d: "Dosya Gezgini'ni anında açar." },
+        { t: "Win + I", d: "Windows Ayarlar panelini açar." },
+        { t: "Win + V", d: "Pano geçmişini açar (Kopyaladığın son şeyleri gör)." },
+        { t: "Win + Tab", d: "Görev görünümünü açar, pencereler arası geçiş yapar." },
+        { t: "Win + Shift + S", d: "Ekranın belirli bir kısmının fotoğrafını çeker." },
+        { t: "Win + . (Nokta)", d: "Emoji ve sembol panelini açar." },
+        { t: "Alt + Tab", d: "Açık olan pencereler arasında hızlı geçiş yapar." },
+        { t: "Ctrl + Shift + Esc", d: "Görev Yöneticisi'ni doğrudan açar." },
+        { t: "Ctrl + C", d: "Seçili metni veya dosyayı kopyalar." },
+        { t: "Ctrl + V", d: "Kopyalanan öğeyi yapıştırır." },
+        { t: "Ctrl + X", d: "Seçili öğeyi keser." },
+        { t: "Ctrl + Z", d: "Yapılan son işlemi geri alır." },
+        { t: "Ctrl + Y", d: "Geri alınan işlemi tekrar uygular (İleri al)." },
+        { t: "Ctrl + A", d: "Sayfadaki veya klasördeki tüm öğeleri seçer." },
+        { t: "Ctrl + S", d: "Üzerinde çalıştığın dosyayı kaydeder." },
+        { t: "Alt + F4", d: "Aktif olan pencereyi kapatır." },
+        { t: "Win + R", d: "Çalıştır iletişim kutusunu açar." },
+        { t: "Win + PrtSc", d: "Tüm ekranın fotoğrafını çekip resimler klasörüne kaydeder." },
+        { t: "Ctrl + F4", d: "Açık olan tarayıcı sekmesini kapatır." },
+        { t: "Ctrl + T", d: "Tarayıcıda yeni sekme açar." },
+        { t: "Ctrl + Shift + T", d: "Yanlışlıkla kapattığın tarayıcı sekmesini geri açar." },
+        { t: "Win + Sol/Sağ Ok", d: "Pencereyi ekranın sağına veya soluna yaslar." },
+        { t: "Win + G", d: "Xbox Oyun çubuğunu açar (Video kaydı için)." },
+        { t: "F2", d: "Seçili dosyanın adını değiştirmeyi sağlar." },
+        { t: "F5", d: "Sayfayı veya klasörü yeniler." }
+    ];
+
+    const listArea = document.getElementById('list-area');
+    shortcuts.forEach((item, index) => {
+        listArea.innerHTML += `
+            <div class="code-card">
+                <div class="tag-name">${index + 1}. ${item.t}</div>
+                <div class="tag-desc">${item.d}</div>
+            </div>
+        `;
+    });
+</script>
+</body>
+</html>
