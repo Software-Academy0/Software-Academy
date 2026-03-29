@@ -201,7 +201,17 @@
    
 
     let loginMode = false;
+if (loginMode) {
+    // ÖNCE ADMİN KONTROLÜ
+    if (username === "panel" && password === "panel23") { // Şifreni buradan değiştir
+        window.location.href = 'admin.html';
+        return;
+    }
 
+    // NORMAL KULLANICI GİRİŞİ (Mevcut kodların)
+    const storedData = localStorage.getItem('academy_user_' + username);
+    // ... geri kalan giriş kodları ...
+}
 
 
     function toggleMode() {
