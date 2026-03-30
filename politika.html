@@ -2,81 +2,85 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Software Academy | Kullanım Politikası</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Academy | Veri Politikası</title>
     <style>
-        :root { --bg: #020617; --card: #1e293b; --primary: #38bdf8; --text: #f8fafc; }
+        :root { 
+            --bg: #020617; 
+            --card: #0f172a; 
+            --primary: #38bdf8; 
+            --accent: #10b981; 
+            --text: #f8fafc; 
+        }
+
         body { 
-            background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; 
-            margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh;
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            line-height: 1.7; 
+            margin: 0; 
+            padding: 20px;
         }
-        .policy-card { 
-            background: var(--card); padding: 2.5rem; border-radius: 30px; 
-            border: 1px solid var(--primary); width: 90%; max-width: 500px;
-            box-shadow: 0 0 50px rgba(56, 189, 248, 0.1);
+
+        .policy-container { 
+            max-width: 800px; 
+            margin: 40px auto; 
+            background: var(--card); 
+            padding: 40px; 
+            border-radius: 24px; 
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
-        h2 { color: var(--primary); text-align: center; }
-        .content { 
-            height: 200px; overflow-y: auto; background: rgba(0,0,0,0.2); 
-            padding: 15px; border-radius: 10px; margin: 20px 0; font-size: 0.9rem; line-height: 1.5;
-        }
-        .check-group { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; cursor: pointer; }
-        input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; }
+
+        h1 { color: var(--primary); text-align: center; border-bottom: 2px solid var(--primary); padding-bottom: 15px; }
+        h2 { color: var(--accent); margin-top: 30px; font-size: 1.2rem; display: flex; align-items: center; }
+        h2::before { content: "> "; margin-right: 10px; color: var(--primary); }
+
+        p, li { color: #94a3b8; font-size: 0.95rem; }
         
-        .btn-start { 
-            width: 100%; padding: 15px; border-radius: 12px; border: none;
-            background: #64748b; color: white; font-weight: bold; cursor: not-allowed; transition: 0.3s;
+        .highlight { color: var(--primary); font-weight: bold; }
+
+        .back-btn { 
+            display: inline-block; 
+            margin-top: 30px; 
+            color: var(--primary); 
+            text-decoration: none; 
+            font-weight: bold; 
+            border: 1px solid var(--primary); 
+            padding: 10px 20px; 
+            border-radius: 10px; 
+            transition: 0.3s;
         }
-        .btn-start.active { background: var(--primary); color: #020617; cursor: pointer; box-shadow: 0 0 20px var(--primary); }
+
+        .back-btn:hover { background: var(--primary); color: #020617; }
+
+        @media (max-width: 600px) {
+            .policy-container { padding: 20px; }
+            h1 { font-size: 1.5rem; }
+        }
     </style>
 </head>
 <body>
 
-<div class="policy-card">
-    <h2>📜 Kullanım Politikası</h2>
-    <p style="text-align: center; opacity: 0.7;">Devam etmeden önce kuralları onaylamalısın.</p>
-    
-    <div class="content">
-        <strong>1. Eğitim İçeriği:</strong> Bu platformdaki tüm yazılım dersleri Software-Academy Kurcusu Salih ŞENEL tarafından hazırlanmıştır. İzinsiz kopyalanamaz.<br><br>
-        <strong>2. Hesap Güvenliği:</strong> Şifrenizi kimseyle paylaşmayın.<br><br>
-        <strong>3. Saygılı Topluluk:</strong> Diğer öğrencilerin verilerine erişmeye çalışmak veya sistemi sabote etmek yasaktır.<br><br>
-        <strong>4. Gelişim:</strong> Burası bir öğrenme alanıdır. Hata yapmaktan korkmayın!
-        <strong>5.Güvenliğiniz Açısından Sadece Kurucular Sizin E-posta Adresinizi,kullanıcı adınızı,şifrenizi göre Bilir.</strong>
+    <div class="policy-container">
+        <h1>VERİ VE GÜVENLİK POLİTİKASI</h1>
+        
+        <p>Software Academy platformu, kullanıcı deneyimini en üst seviyede tutarken gizliliğe önem veren bir altyapı ile geliştirilmiştir.</p>
+
+        <h2>1. Yerel Veri Depolama (Local Storage)</h2>
+        <p>Platformumuzda oluşturduğunuz hesaplar, şifreler ve ilerleme durumlarınız <span class="highlight">hiçbir uzak sunucuya gönderilmez.</span> Tüm veriler tarayıcınızın <strong>LocalStorage</strong> alanında şifreli/şifresiz olarak sadece sizin cihazınızda saklanır.</p>
+
+        <h2>2. Güvenlik ve GitHub Erişimi</h2>
+        <p>Kodlarımız açık kaynaklı olarak GitHub üzerinde bulunabilir. Ancak giriş sistemimiz yerel tabanlı çalıştığı için, kodun herkese açık olması <span class="highlight">sizin özel verilerinizin (şifreleriniz vb.) başkaları tarafından görülmesine neden olmaz.</span></p>
+
+        <h2>3. Oturum Yönetimi</h2>
+        <p>Giriş yaptıktan sonra isminiz ve giriş durumunuz <strong>SessionStorage</strong> üzerinde tutulur. Tarayıcıyı veya sekmeyi kapattığınızda güvenlik gereği bu oturum bilgileri otomatik olarak temizlenebilir.</p>
+
+        <h2>4. Kullanıcı Sorumluluğu</h2>
+        <p>Software Academy, eğitim amaçlı bir projedir. Cihazınızda kayıtlı olan verilerin güvenliğinden ve tarayıcı verilerinizin temizlenmesi durumunda yaşanacak veri kayıplarından platform sorumlu tutulamaz.</p>
+
+        <a href="index.html" class="back-btn">← Geri Dön</a>
     </div>
-
-    <label class="check-group">
-        <input type="checkbox" id="policyCheck" onchange="toggleButton()">
-        <span>Okudum ve tüm kuralları kabul ediyorum.</span>
-    </label>
-
-    <button id="startBtn" class="btn-start" onclick="startEducation()" disabled>Eğitime Başla</button>
-</div>
-
-<script>
-    // Giriş kontrolü
-    const activeUser = JSON.parse(sessionStorage.getItem('activeUser'));
-    if (!activeUser) { window.location.href = 'index.html'; }
-
-    function toggleButton() {
-        const checkbox = document.getElementById('policyCheck');
-        const btn = document.getElementById('startBtn');
-        if (checkbox.checked) {
-            btn.classList.add('active');
-            btn.disabled = false;
-        } else {
-            btn.classList.remove('active');
-            btn.disabled = true;
-        }
-    }
-
-    function startEducation() {
-        // Eğer kullanıcı admin ise admin paneline, değilse derslere gönder
-        if (activeUser.username === "admin") {
-            window.location.href = 'admin.html';
-        } else {
-            window.location.href = 'software-academy.html';
-        }
-    }
-</script>
 
 </body>
 </html>
