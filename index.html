@@ -3,124 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Software Academy | Giriş Portalı</title>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <title>Software Academy | Giriş</title>
     <style>
-        :root { --bg: #020617; --card: #1e293b; --primary: #38bdf8; --text: #f8fafc; }
-        body { 
-            background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; 
-            margin: 0; display: flex; justify-content: center; align-items: center; 
-            min-height: 100vh; background-image: radial-gradient(circle at 50% 50%, #1e293b 0%, #020617 100%);
+        :root {
+            --primary: #38bdf8;
+            --purple: #a855f7;
+            --bg: #020617;
+            --glass: rgba(15, 23, 42, 0.8);
         }
-        .auth-card { 
-            background: rgba(30, 41, 59, 0.7); padding: 3rem; border-radius: 40px; 
-            border: 2px solid var(--primary); backdrop-filter: blur(25px); 
-            width: 100%; max-width: 400px; text-align: center;
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: radial-gradient(circle at top right, #1e1b4b, #020617);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            overflow: hidden;
         }
-        .input-box { margin-bottom: 20px; text-align: left; }
-        .input-box label { display: block; margin-bottom: 6px; color: var(--primary); font-size: 0.8rem; text-transform: uppercase; font-weight: bold; }
-        input { 
-            width: 100%; padding: 14px; border-radius: 12px; border: 1px solid rgba(56, 189, 248, 0.2); 
-            background: rgba(15, 23, 42, 0.8); color: white; outline: none; box-sizing: border-box; 
+
+        /* Arka Plan Hareketli Işıklar */
+        .blob {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: var(--primary);
+            filter: blur(80px);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0.2;
+            animation: move 10s infinite alternate;
         }
-        .btn-glow { 
-            width: 100%; background: var(--primary); color: #020617; border: none; 
-            padding: 16px; border-radius: 12px; font-weight: 900; cursor: pointer; 
-            text-transform: uppercase; margin-top: 10px; transition: 0.3s;
+
+        @keyframes move {
+            from { transform: translate(-50px, -50px); }
+            to { transform: translate(50px, 50px); }
         }
-        .btn-glow:hover { background: white; transform: translateY(-2px); }
-        .footer-link { margin-top: 20px; color: #818cf8; cursor: pointer; font-size: 0.9rem; }
+
+        .login-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            object-fit: contain;
+        }
+
+        h2 { margin-bottom: 10px; letter-spacing: 1px; }
+        p { color: #94a3b8; font-size: 0.9rem; margin-bottom: 30px; }
+
+        .input-group { margin-bottom: 20px; text-align: left; }
+        label { display: block; margin-bottom: 8px; font-size: 0.85rem; color: var(--primary); }
+        
+        input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus { border-color: var(--primary); background: rgba(255, 255, 255, 0.1); }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-primary { background: var(--primary); color: #020617; }
+        .btn-primary:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+
+        .switch {
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        .switch span { color: var(--primary); cursor: pointer; font-weight: bold; }
+
+        .msg { margin-top: 15px; font-size: 0.85rem; min-height: 1.2rem; }
     </style>
 </head>
 <body>
 
-    <div class="auth-card">
-        <h1 id="mainTitle">Kayıt Ol</h1>
-        <p id="subTitle" style="opacity:0.6; margin-bottom:20px;">Akademiye hoş geldin!</p>
+    <div class="blob"></div>
 
-        <div class="input-box" id="emailSection">
-            <label>E-Posta</label>
-            <input type="email" id="emailField" placeholder="mail@adres.com">
+    <div class="login-card">
+        <img src="img.png" alt="Logo" class="logo">
+        
+        <div id="form-container">
+            <h2 id="title">Giriş Yap</h2>
+            <p id="desc">Software Academy dünyasına dön.</p>
+
+            <div class="input-group">
+                <label>Kullanıcı Adı</label>
+                <input type="text" id="username" placeholder="Kullanıcı adını gir...">
+            </div>
+
+            <div class="input-group">
+                <label>Şifre</label>
+                <input type="password" id="password" placeholder="••••••••">
+            </div>
+
+            <button class="btn btn-primary" onclick="handleAuth()" id="mainBtn">Giriş Yap</button>
+            
+            <div class="msg" id="msg"></div>
+
+            <div class="switch" id="switch-text">
+                Hesabın yok mu? <span onclick="toggleMode()">Kayıt Ol</span>
+            </div>
         </div>
-
-        <div class="input-box">
-            <label>Kullanıcı Adı</label>
-            <input type="text" id="userField" placeholder="Kullanıcı adın">
-        </div>
-
-        <div class="input-box">
-            <label>Şifre</label>
-            <input type="password" id="passField" placeholder="••••••••">
-        </div>
-
-        <button class="btn-glow" id="actionBtn" onclick="handleAuth()">Hesabı Oluştur</button>
-        <div class="footer-link" id="toggleLink" onclick="toggleMode()">Zaten hesabın var mı? Giriş Yap</div>
     </div>
 
-<script>
-    (function() { emailjs.init("ZQTATClFkWWdzYdJn"); })();
+    <script>
+        let isLogin = true;
 
-    let loginMode = false;
+        function toggleMode() {
+            isLogin = !isLogin;
+            const title = document.getElementById('title');
+            const desc = document.getElementById('desc');
+            const mainBtn = document.getElementById('mainBtn');
+            const switchText = document.getElementById('switch-text');
 
-    function toggleMode() {
-        loginMode = !loginMode;
-        document.getElementById('mainTitle').innerText = loginMode ? "Giriş Yap" : "Kayıt Ol";
-        document.getElementById('actionBtn').innerText = loginMode ? "Giriş Yap" : "Hesabı Oluştur";
-        document.getElementById('toggleLink').innerText = loginMode ? "Hesabın yok mu? Kayıt Ol" : "Zaten hesabın var mı? Giriş Yap";
-        document.getElementById('emailSection').style.display = loginMode ? "none" : "block";
-    }
-
-    function handleAuth() {
-        const user = document.getElementById('userField').value.trim();
-        const pass = document.getElementById('passField').value.trim();
-        const email = document.getElementById('emailField').value.trim();
-
-        if (!user || !pass || (!loginMode && !email)) {
-            alert("Boş alan bırakma!");
-            return;
+            if (isLogin) {
+                title.innerText = "Giriş Yap";
+                desc.innerText = "Software Academy dünyasına dön.";
+                mainBtn.innerText = "Giriş Yap";
+                switchText.innerHTML = 'Hesabın yok mu? <span onclick="toggleMode()">Kayıt Ol</span>';
+            } else {
+                title.innerText = "Kayıt Ol";
+                desc.innerText = "Yeni bir hesap oluştur ve başla.";
+                mainBtn.innerText = "Kayıt Ol";
+                switchText.innerHTML = 'Zaten hesabın var mı? <span onclick="toggleMode()">Giriş Yap</span>';
+            }
         }
 
-        if (loginMode) {
-            // --- GİRİŞ KONTROLÜ ---
-            
-            // 1. ÖNCE ADMİN KONTROLÜ (Kayıt gerektirmez)
-            if (user === "admin" && pass === "123456789") {
-                const adminData = { username: "admin", role: "admin" };
-                sessionStorage.setItem('activeUser', JSON.stringify(adminData));
-                window.location.href = 'admin.html'; // Admin direkt panele
+        function handleAuth() {
+            const userInp = document.getElementById('username').value;
+            const passInp = document.getElementById('password').value;
+            const msg = document.getElementById('msg');
+
+            if (!userInp || !passInp) {
+                msg.style.color = "#ef4444";
+                msg.innerText = "Lütfen alanları doldur!";
                 return;
             }
 
-            // 2. NORMAL KULLANICI KONTROLÜ
-            const saved = localStorage.getItem('academy_user_' + user);
-            if (saved) {
-                const parsed = JSON.parse(saved);
-                if (parsed.password === pass) {
-                    sessionStorage.setItem('activeUser', JSON.stringify(parsed));
-                    window.location.href = 'politika.html'; // Kullanıcı önce politikaya
-                } else { alert("Şifre yanlış!"); }
-            } else { alert("Kullanıcı bulunamadı!"); }
-
-        } else {
-            // --- KAYIT KONTROLÜ ---
-            if (localStorage.getItem('academy_user_' + user)) {
-                alert("Bu isim zaten alınmış!");
+            // GİZLİ KAPI: 5e / 5e kontrolü
+            if (userInp === "SEYMA-HOCA" && passInp === "SEYMA-HOCA") {
+                sessionStorage.setItem('activeUser', JSON.stringify({username: "ŞEYMA HOCAM WELCOME TU TAKSİM MEYDAN"}));
+                window.location.href = 'software-academy.html';
                 return;
             }
 
-            // EmailJS ile bildirim gönder (Opsiyonel)
-            emailjs.send('Software Academy', 'BURAYA_TEMPLATE_ID_YAZ', {
-                username: user,
-                user_email: email
-            });
+            let users = JSON.parse(localStorage.getItem('sa_users')) || [];
 
-            // Kaydet
-            const newUser = { username: user, password: pass, email: email, level: 1 };
-            localStorage.setItem('academy_user_' + user, JSON.stringify(newUser));
-            alert("Kayıt başarılı! Şimdi giriş yapabilirsin.");
-            location.reload();
+            if (isLogin) {
+                // Giriş Mantığı
+                const foundUser = users.find(u => u.username === userInp && u.password === passInp);
+                if (foundUser) {
+                    sessionStorage.setItem('activeUser', JSON.stringify(foundUser));
+                    window.location.href = 'software-academy.html';
+                } else {
+                    msg.style.color = "#ef4444";
+                    msg.innerText = "Hatalı kullanıcı adı veya şifre!";
+                }
+            } else {
+                // Kayıt Mantığı
+                const exists = users.find(u => u.username === userInp);
+                if (exists) {
+                    msg.style.color = "#ef4444";
+                    msg.innerText = "Bu kullanıcı adı zaten alınmış!";
+                } else {
+                    users.push({ username: userInp, password: passInp });
+                    localStorage.setItem('sa_users', JSON.stringify(users));
+                    msg.style.color = "#10b981";
+                    msg.innerText = "Başarıyla kayıt oldun! Giriş yapabilirsin.";
+                    setTimeout(toggleMode, 1500);
+                }
+            }
         }
-    }
-</script>
+    </script>
 </body>
 </html>
