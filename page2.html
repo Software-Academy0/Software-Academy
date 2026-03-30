@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Software Academy | Yönetim Paneli</title>
+    <style>
+        :root { 
+            --bg: #020617; 
+            --card: #0f172a; 
+            --primary: #38bdf8; 
+            --accent: #10b981; 
+            --text: #f8fafc; 
+            --danger: #ef4444;
+            --purple: #a855f7;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            margin: 0; 
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .header { 
+            background: rgba(15, 23, 42, 0.95); 
+            padding: 20px 15px; 
+            text-align: center;
+            border-bottom: 2px solid var(--primary); 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 { margin: 0; font-size: 1.5rem; letter-spacing: 2px; text-transform: uppercase; color: var(--primary); }
+        
+        /* Karşılama Mesajı Stili */
+        .welcome-user {
+            margin-top: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--accent);
+            letter-spacing: 0.5px;
+        }
+
+        .container { 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            padding: 20px; 
+        }
+        
+        .top-nav { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 15px; 
+            margin-bottom: 30px; 
+        }
+        .bt { 
+            display: block;
+            text-align: center;
+            text-decoration: none; 
+            font-weight: bold; 
+            padding: 14px; 
+            border-radius: 12px; 
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+        .bt-projects { color: var(--danger); border: 2px solid var(--danger); }
+        .bt-projects:hover { background: var(--danger); color: white; }
+        
+        .bt-page2 { color: var(--purple); border: 2px solid var(--purple); }
+        .bt-page2:hover { background: var(--purple); color: white; }
+
+        .section-title { 
+            color: var(--primary); 
+            border-left: 4px solid var(--primary); 
+            padding-left: 12px; 
+            margin: 40px 0 20px 0; 
+            font-size: 1.3rem;
+            text-transform: uppercase;
+        }
+        
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
+            gap: 15px; 
+        }
+
+        .code-card { 
+            background: var(--card); 
+            border-radius: 18px; 
+            padding: 20px; 
+            border: 1px solid rgba(56, 189, 248, 0.1); 
+            transition: 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 180px;
+        }
+
+        @media (hover: hover) {
+            .code-card:hover { border-color: var(--primary); transform: translateY(-5px); }
+        }
+
+        .card-title { color: var(--primary); font-size: 1.1rem; font-weight: bold; margin-bottom: 8px; }
+        .card-desc { color: #94a3b8; font-size: 0.85rem; margin-bottom: 15px; }
+        
+        .go-btn { 
+            display: block;
+            width: 100%;
+            padding: 12px; 
+            background: var(--primary); 
+            color: #020617; 
+            text-decoration: none; 
+            border-radius: 10px; 
+            font-weight: bold; 
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .footer-nav { 
+            margin-top: 50px; 
+            padding: 30px 0;
+            text-align: center;
+        }
+        .logout-link { color: #64748b; text-decoration: none; font-size: 0.9rem; border: 1px solid #64748b; padding: 8px 20px; border-radius: 8px; }
+
+        @media (max-width: 600px) {
+            .top-nav { grid-template-columns: 1fr; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <h1>SOFTWARE ACADEMY</h1>
+        <div id="userGreeting" class="welcome-user">Hoş geldin!</div>
+    </header>
+
+    <div class="container">
+        
+        <div class="top-nav">
+            <a class="bt bt-projects" href="software-academy.html">🚀 ANA SAYFA</a>
+            <a class="bt bt-page2" href="software-academy.html">📄 ANA SAYFA</a>
+        </div>
+
+        <h2 class="section-title">🖥️Test Merkezi🖥️</h2>
+        <div class="grid">
+            <div class="code-card" style="border-top: 4px solid #e34c26;">
+                <div class="card-title">HTML TESTİ! </div>
+                <p class="card-desc">Web Site İskeleti</p>
+                <a href="htmltest.html" class="go-btn">BAŞLAT</a>
+            </div>
+            <div class="code-card" style="border-top: 4px solid #264de4;">
+                <div class="card-title">CSS TESTİ! </div>
+                <p class="card-desc">Görsel tasarım ve stil.</p>
+                <a href="csstest.html" class="go-btn">BAŞLAT</a>
+            </div>
+            <div class="code-card" style="border-top: 4px solid #f7df1e;">
+                <div class="card-title">JAVASCRİPT TESTİ!</div>
+                <p class="card-desc">Mantık ve dinamik kodlama.</p>
+                <a href="jstest.html" class="go-btn">BAŞLAT</a>
+            </div>
+            <div class="code-card" style="border-top: 4px solid #3776ab;">
+                <div class="card-title">PYTHON TESTİ!</div>
+                <p class="card-desc">Sintaks ve veri yapıları.</p>
+                <a href="pytest.html" class="go-btn">BAŞLAT</a>
+            </div>
+        </div>
+
+      
+
+        <footer class="footer-nav">
+            <a href="index.html" class="logout-link" onclick="sessionStorage.clear()">GÜVENLİ ÇIKIŞ</a>
+        </footer>
+    </div>
+
+    <script>
+        // Oturum kontrolü ve Kullanıcı Adını Yazdırma
+        const user = JSON.parse(sessionStorage.getItem('activeUser'));
+        
+        if (!user) {
+            window.location.href = 'index.html';
+        } else {
+            // Software Academy altına ismi yazdır
+            document.getElementById('userGreeting').innerText = `Hoş geldin, ${user.username}!`;
+        }
+    </script>
+</body>
+</html> 
